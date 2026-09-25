@@ -149,7 +149,7 @@ def main() -> None:
     captioned = DELIVERABLES / "SiteCheck-final-captioned-1080p.mp4"
     run(
         ffmpeg, "-y", "-i", final,
-        "-vf", "subtitles=docs/sitecheck-captions.srt:fontsdir=/Users/athvs/Library/Fonts:force_style='FontName=Sequel100Black-75,FontSize=16,Bold=-1,Italic=-1,PrimaryColour=&H0063FDDC,OutlineColour=&H00000000,BorderStyle=1,Outline=1,Shadow=0,MarginV=36,Alignment=2',format=yuv420p",
+        "-vf", "subtitles=docs/sitecheck-captions.ass:fontsdir=/Users/athvs/Library/Fonts,format=yuv420p",
         "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-c:a", "copy",
         "-movflags", "+faststart", captioned,
     )

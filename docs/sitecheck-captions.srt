@@ -60,5 +60,5 @@ that could have hidden a new regression.
 
 13
 00:01:24,500 --> 00:01:30,600
-Find a problem, decide what matters,
+{\an8\pos(960,132)}Find a problem, decide what matters,
 fix it, and prove the result.
