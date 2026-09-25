@@ -1,0 +1,31 @@
+{
+  "schema_version": "1",
+  "checked_file": "demo-site/index.html",
+  "total_findings": 2,
+  "findings": [
+    {
+      "id": "SC-001",
+      "title": "Imagem sem texto alternativo",
+      "severity": "high",
+      "file": "demo-site/index.html",
+      "location": "linha 24 — <img src=\"hero.jpg\">",
+      "reproduction": "Abra o arquivo com um leitor de tela ou valide em https://validator.w3.org. O atributo alt está ausente.",
+      "evidence": "<img src=\"hero.jpg\"> sem atributo alt na linha 24.",
+      "recommendation": "Adicione alt com uma descrição útil da imagem, por exemplo: alt=\"Imagem principal do portfólio\". Se a imagem for puramente decorativa, use alt=\"\".",
+      "state": "open",
+      "recheck_result": null
+    },
+    {
+      "id": "SC-003",
+      "title": "Link interno apontando para destino inexistente",
+      "severity": "medium",
+      "file": "demo-site/index.html",
+      "location": "linha 17 — <a href=\"contato.html\">",
+      "reproduction": "Clique no link ou abra contato.html a partir do diretório do site. O arquivo de destino não existe.",
+      "evidence": "<a href=\"contato.html\"> na linha 17; arquivo esperado em demo-site/contato.html não encontrado.",
+      "recommendation": "Crie o arquivo contato.html ou corrija o href para um destino que existe.",
+      "state": "open",
+      "recheck_result": null
+    }
+  ]
+}

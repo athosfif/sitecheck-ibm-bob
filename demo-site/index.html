@@ -28,7 +28,8 @@
     <section class="newsletter">
       <h2>Receba novidades</h2>
       <form action="#" method="post">
-        <!-- FALHA 2: campo sem rótulo associado -->
+        <!-- CORREÇÃO SC-002: label associado ao campo pelo atributo for -->
+        <label for="email-input">Endereço de e-mail</label>
         <input type="email" id="email-input" placeholder="seu@email.com">
         <button type="submit">Inscrever</button>
       </form>

@@ -13,19 +13,21 @@ Python 3.8 ou superior. Sem dependências externas — apenas a biblioteca padr�
 ## Uso
 
 ```sh
-# verificar o demo-site incluído no repositório
+# verificar um arquivo HTML
 python3 sitecheck.py demo-site/index.html
 
 # especificar diretório de saída
 python3 sitecheck.py demo-site/index.html --out-dir meu-relatorio
+
+# comparar dois relatórios (fluxo antes/depois)
+python3 recheck.py sitecheck-output/before/report.json sitecheck-output/after/report.json
 ```
 
-O comando escreve dois arquivos no diretório de saída (padrão: `sitecheck-output/`):
+`sitecheck.py` escreve `report.json` e `report.html` no diretório de saída.
+`recheck.py` lê dois relatórios JSON e escreve `comparison.json` e `comparison.html`.
 
-- `report.json` — achados em formato estruturado
-- `report.html` — relatório legível em navegador
-
-Exit code `1` quando há achados, `0` quando não há.
+`sitecheck.py` retorna exit code `1` quando há achados e `0` quando não há.
+`recheck.py` retorna `0` quando a comparação é gerada com sucesso; o estado dos achados fica registrado no JSON e no HTML.
 
 ## Testes
 
@@ -33,21 +35,20 @@ Exit code `1` quando há achados, `0` quando não há.
 python3 -m unittest discover test
 ```
 
-26 testes unitários cobrindo os três checkers, o schema e o comportamento de relatório vazio.
+42 testes unitários cobrindo os três checkers, o schema, a lógica de comparação, regressões e os relatórios reais gerados nas sessões.
 
 ## Demo
 
-O diretório `demo-site/` contém uma página com três falhas intencionais:
+O diretório `demo-site/` contém uma página com falhas intencionais usada para demonstrar o fluxo antes/depois:
 
-| ID     | Falha                                           | Severidade |
-|--------|-------------------------------------------------|------------|
-| SC-001 | Imagem sem texto alternativo                    | Alta       |
-| SC-002 | Campo de formulário sem rótulo associado        | Alta       |
-| SC-003 | Link interno apontando para destino inexistente | Média      |
+| ID     | Falha                                           | Severidade | Estado após sessão 03 |
+|--------|-------------------------------------------------|------------|-----------------------|
+| SC-001 | Imagem sem texto alternativo                    | Alta       | Aberto (priorizado depois) |
+| SC-002 | Campo de formulário sem rótulo associado        | Alta       | **Corrigido** |
+| SC-003 | Link interno apontando para destino inexistente | Média      | Aberto (priorizado depois) |
 
-As falhas estão preservadas para demonstrar o fluxo antes/depois na próxima sessão.
-
-O diretório `sitecheck-output/` contém a saída da primeira execução sobre o demo-site — JSON e HTML — como evidência do estado inicial.
+SC-001 e SC-003 foram mantidos abertos intencionalmente para demonstrar que a ferramenta
+prioriza correções — não exige resolver tudo de uma vez.
 
 ## Estrutura
 
@@ -56,9 +57,14 @@ src/
   schema.py       contrato de um achado e do relatório
   checkers.py     três verificadores determinísticos
   reporter.py     gerador de report.json e report.html
-sitecheck.py      CLI
-demo-site/        site de demonstração com falhas intencionais
-sitecheck-output/ saída da primeira execução (evidência)
+  compare.py      lógica de comparação antes/depois
+sitecheck.py      CLI de verificação
+recheck.py        CLI de comparação antes/depois
+demo-site/        site de demonstração
+sitecheck-output/
+  before/         relatório do estado com os três achados abertos
+  after/          relatório após correção do SC-002
+  comparison/     artefato de comparação antes/depois
 test/             testes unitários (unittest, stdlib)
 docs/             especificação, brief e registros de sessão
 ```
@@ -70,5 +76,4 @@ Os verificadores detectam padrões específicos — não prometem cobertura comp
 
 ## Estado
 
-Sessão 02 concluída: fluxo ponta a ponta funcionando, 26 testes passando.
-Próxima sessão: ciclo de reverificação (aplicar correção → rodar novamente → comparar antes/depois).
+Sessão 03 concluída: fluxo de reverificação implementado, SC-002 corrigido, 42 testes passando.

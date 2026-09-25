@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SiteCheck — relatório</title>
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  font-size: 14px; line-height: 1.6;
+  color: #1f2328; background: #ffffff;
+  padding: 2rem;
+}
+h1 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
+.meta { color: #57606a; font-size: 0.85rem; margin-bottom: 2rem; }
+.empty {
+  background: #f7f8fa; border: 1px solid #e5e7eb;
+  border-radius: 6px; padding: 1.25rem 1.5rem;
+  color: #57606a;
+}
+.finding {
+  border: 1px solid #e5e7eb; border-radius: 6px;
+  margin-bottom: 1.25rem; overflow: hidden;
+}
+.finding-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #f7f8fa; border-bottom: 1px solid #e5e7eb;
+}
+.finding-id   { font-size: 0.75rem; color: #57606a; font-family: monospace; }
+.finding-title{ font-weight: 600; flex: 1; }
+.badge {
+  font-size: 0.7rem; font-weight: 600;
+  padding: 0.15rem 0.5rem; border-radius: 99px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.sev-high     { background: #fee2e2; color: #b91c1c; }
+.sev-medium   { background: #fef3c7; color: #92400e; }
+.sev-low      { background: #d1fae5; color: #065f46; }
+.state-open       { background: #fee2e2; color: #b91c1c; }
+.state-fixed      { background: #d1fae5; color: #065f46; }
+.state-regressed  { background: #fef3c7; color: #92400e; }
+.state-unverified { background: #f7f8fa; color: #57606a; }
+.finding-body { padding: 1rem; }
+.field { margin-bottom: 0.75rem; }
+.field-label {
+  font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  color: #57606a; margin-bottom: 0.15rem;
+}
+.field-value { font-size: 0.875rem; }
+code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.82rem; background: #f7f8fa;
+  padding: 0.1rem 0.35rem; border-radius: 3px;
+  border: 1px solid #e5e7eb;
+}
+footer {
+  margin-top: 2.5rem; padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.8rem; color: #57606a; text-align: center;
+}
+</style>
+</head>
+<body>
+  <h1>SiteCheck — relatório</h1>
+  <p class="meta">Arquivo verificado: <code>demo-site/index.html</code> &nbsp;·&nbsp; 2026-09-25 16:08 UTC &nbsp;·&nbsp; 2 achados encontrados pelos testes executados.</p>
+  <div class="finding">  <div class="finding-header">    <span class="finding-id">SC-001</span>    <span class="finding-title">Imagem sem texto alternativo</span>    <span class="badge sev-high">Severidade Alta</span>    <span class="badge state-open">Aberto</span>  </div>  <div class="finding-body"><div class="field"><div class="field-label">Arquivo / localização</div><div class="field-value">linha 24 — &lt;img src=&quot;hero.jpg&quot;&gt;</div></div><div class="field"><div class="field-label">Como reproduzir</div><div class="field-value">Abra o arquivo com um leitor de tela ou valide em https://validator.w3.org. O atributo alt está ausente.</div></div><div class="field"><div class="field-label">Evidência</div><div class="field-value">&lt;img src=&quot;hero.jpg&quot;&gt; sem atributo alt na linha 24.</div></div><div class="field"><div class="field-label">Correção recomendada</div><div class="field-value">Adicione alt com uma descrição útil da imagem, por exemplo: alt=&quot;Imagem principal do portfólio&quot;. Se a imagem for puramente decorativa, use alt=&quot;&quot;.</div></div></div></div>
+<div class="finding">  <div class="finding-header">    <span class="finding-id">SC-003</span>    <span class="finding-title">Link interno apontando para destino inexistente</span>    <span class="badge sev-medium">Severidade Média</span>    <span class="badge state-open">Aberto</span>  </div>  <div class="finding-body"><div class="field"><div class="field-label">Arquivo / localização</div><div class="field-value">linha 17 — &lt;a href=&quot;contato.html&quot;&gt;</div></div><div class="field"><div class="field-label">Como reproduzir</div><div class="field-value">Clique no link ou abra contato.html a partir do diretório do site. O arquivo de destino não existe.</div></div><div class="field"><div class="field-label">Evidência</div><div class="field-value">&lt;a href=&quot;contato.html&quot;&gt; na linha 17; arquivo esperado em demo-site/contato.html não encontrado.</div></div><div class="field"><div class="field-label">Correção recomendada</div><div class="field-value">Crie o arquivo contato.html ou corrija o href para um destino que existe.</div></div></div></div>
+  <footer>Gerado por SiteCheck · stdlib Python 3 · sem serviços externos</footer>
+</body>
+</html>

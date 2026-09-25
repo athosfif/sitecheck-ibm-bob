@@ -117,12 +117,12 @@ class TestLabelFor(unittest.TestCase):
         result = check_label_for(src, DUMMY_PATH)
         self.assertEqual(len(result), 0)
 
-    def test_demo_site_has_flaw(self):
-        """O demo-site real deve disparar SC-002."""
+    def test_demo_site_sc002_fixed(self):
+        """SC-002 foi corrigido na sessão 03: demo-site não deve mais disparar este checker."""
         demo = Path(__file__).parent.parent / "demo-site" / "index.html"
         src = demo.read_text(encoding="utf-8")
         result = check_label_for(src, str(demo))
-        self.assertGreater(len(result), 0, "demo-site deveria ter SC-002")
+        self.assertEqual(len(result), 0, "SC-002 foi corrigido — checker não deve disparar")
 
 
 # ── SC-003: link quebrado ─────────────────────────────────────────────────────
@@ -190,11 +190,12 @@ class TestBrokenLinks(unittest.TestCase):
 
 class TestRunAll(unittest.TestCase):
 
-    def test_demo_site_produces_exactly_three_findings(self):
+    def test_demo_site_produces_exactly_two_findings_after_sc002_fix(self):
+        """Após a correção do SC-002 na sessão 03, o demo-site tem dois achados abertos."""
         demo = Path(__file__).parent.parent / "demo-site" / "index.html"
         src = demo.read_text(encoding="utf-8")
         result = run_all(src, str(demo))
-        self.assertEqual(len(result), 3, f"esperado 3 achados, obtido {len(result)}")
+        self.assertEqual(len(result), 2, f"esperado 2 achados, obtido {len(result)}")
 
     def test_demo_site_findings_have_distinct_ids(self):
         demo = Path(__file__).parent.parent / "demo-site" / "index.html"
