@@ -52,12 +52,14 @@ def still_clip(ffmpeg: str, image: Path, output: Path, duration: int, mode: str 
 def main() -> None:
     if not CHROME.exists():
         raise SystemExit("Google Chrome was not found.")
-    runtime_python = Path("/Users/athvs/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3")
-    probe = subprocess.run(
-        [runtime_python, "-c", "import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())"],
-        check=True, capture_output=True, text=True,
-    )
-    ffmpeg = probe.stdout.strip()
+    ffmpeg = shutil.which("ffmpeg")
+    if not ffmpeg:
+        probe = subprocess.run(
+            [sys.executable, "-c", "import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())"],
+            check=True, capture_output=True, text=True,
+        )
+        ffmpeg = probe.stdout.strip()
+    fonts_dir = Path(os.environ.get("SITECHECK_FONT_DIR", Path.home() / "Library" / "Fonts"))
 
     if BUILD.exists():
         # External APFS volumes can expose transient AppleDouble files while
@@ -149,7 +151,7 @@ def main() -> None:
     captioned = DELIVERABLES / "SiteCheck-final-captioned-1080p.mp4"
     run(
         ffmpeg, "-y", "-i", final,
-        "-vf", "subtitles=docs/sitecheck-captions.ass:fontsdir=/Users/athvs/Library/Fonts,format=yuv420p",
+        "-vf", f"subtitles=docs/sitecheck-captions.ass:fontsdir={fonts_dir},format=yuv420p",
         "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-c:a", "copy",
         "-movflags", "+faststart", captioned,
     )
