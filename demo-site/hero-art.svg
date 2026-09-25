@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 820">
+  <rect width="720" height="820" fill="#11130f"/>
+  <path d="M0 640L720 180V820H0Z" fill="#5b63ff"/>
+  <circle cx="540" cy="210" r="148" fill="#d8ff55"/>
+  <path d="M84 88h330v330H84z" fill="none" stroke="#f2eee4" stroke-width="2"/>
+  <path d="M84 418L414 88M84 88l330 330" stroke="#f2eee4" stroke-width="2"/>
+  <path d="M78 674c120-90 236-90 348 0s210 90 294 0" fill="none" stroke="#ff735f" stroke-width="34"/>
+  <text x="58" y="770" fill="#f2eee4" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="6">FIGUEIRA / 26</text>
+</svg>

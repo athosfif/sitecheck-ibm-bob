@@ -8,9 +8,9 @@
       "title": "Imagem sem texto alternativo",
       "severity": "high",
       "file": "demo-site/index.html",
-      "location": "linha 24 — <img src=\"hero.jpg\">",
+      "location": "linha 29 — <img src=\"hero-art.svg\">",
       "reproduction": "Abra o arquivo com um leitor de tela ou valide em https://validator.w3.org. O atributo alt está ausente.",
-      "evidence": "<img src=\"hero.jpg\"> sem atributo alt na linha 24.",
+      "evidence": "<img src=\"hero-art.svg\"> sem atributo alt na linha 29.",
       "recommendation": "Adicione alt com uma descrição útil da imagem, por exemplo: alt=\"Imagem principal do portfólio\". Se a imagem for puramente decorativa, use alt=\"\".",
       "state": "open",
       "recheck_result": null

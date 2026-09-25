@@ -39,60 +39,42 @@ def write_json(report: dict, out_path: str | Path) -> None:
 
 _CSS = """
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
-  font-size: 14px; line-height: 1.6;
-  color: #1f2328; background: #ffffff;
-  padding: 2rem;
+:root {
+  --ink: #11130f; --paper: #f2eee4; --acid: #d8ff55;
+  --cobalt: #5b63ff; --coral: #ff735f; --line: rgba(17,19,15,.17);
+  --sans: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Iowan Old Style", Baskerville, Georgia, serif;
+  --mono: "SFMono-Regular", Consolas, monospace;
 }
-h1 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
-.meta { color: #57606a; font-size: 0.85rem; margin-bottom: 2rem; }
-.empty {
-  background: #f7f8fa; border: 1px solid #e5e7eb;
-  border-radius: 6px; padding: 1.25rem 1.5rem;
-  color: #57606a;
-}
-.finding {
-  border: 1px solid #e5e7eb; border-radius: 6px;
-  margin-bottom: 1.25rem; overflow: hidden;
-}
-.finding-header {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: #f7f8fa; border-bottom: 1px solid #e5e7eb;
-}
-.finding-id   { font-size: 0.75rem; color: #57606a; font-family: monospace; }
-.finding-title{ font-weight: 600; flex: 1; }
-.badge {
-  font-size: 0.7rem; font-weight: 600;
-  padding: 0.15rem 0.5rem; border-radius: 99px;
-  text-transform: uppercase; letter-spacing: 0.04em;
-}
-.sev-high     { background: #fee2e2; color: #b91c1c; }
-.sev-medium   { background: #fef3c7; color: #92400e; }
-.sev-low      { background: #d1fae5; color: #065f46; }
-.state-open       { background: #fee2e2; color: #b91c1c; }
-.state-fixed      { background: #d1fae5; color: #065f46; }
-.state-regressed  { background: #fef3c7; color: #92400e; }
-.state-unverified { background: #f7f8fa; color: #57606a; }
-.finding-body { padding: 1rem; }
-.field { margin-bottom: 0.75rem; }
-.field-label {
-  font-size: 0.75rem; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.05em;
-  color: #57606a; margin-bottom: 0.15rem;
-}
-.field-value { font-size: 0.875rem; }
-code {
-  font-family: "SFMono-Regular", Consolas, monospace;
-  font-size: 0.82rem; background: #f7f8fa;
-  padding: 0.1rem 0.35rem; border-radius: 3px;
-  border: 1px solid #e5e7eb;
-}
-footer {
-  margin-top: 2.5rem; padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
-  font-size: 0.8rem; color: #57606a; text-align: center;
+body { font-family: var(--sans); font-size: 15px; line-height: 1.55; color: var(--ink); background: #0c0e0c; padding: 28px; }
+.report-shell { width: min(1160px, 100%); margin: 0 auto; padding: 28px 44px 38px; background: var(--paper); }
+.report-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.brand { font-size: .8rem; font-weight: 750; letter-spacing: .18em; text-transform: uppercase; }
+.brand::before { content: "●"; color: var(--cobalt); margin-right: 9px; }
+.edition { font: 650 .68rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.report-intro { display: grid; grid-template-columns: 1.2fr .8fr; align-items: end; gap: 40px; padding: 58px 0 46px; }
+.eyebrow { margin-bottom: 14px; font-size: .68rem; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; }
+h1 { font: 400 clamp(3.2rem, 7vw, 6.7rem)/.88 var(--serif); letter-spacing: -.055em; }
+.meta { align-self: end; color: #4d5049; font-size: .82rem; }
+.meta code { display: block; margin-bottom: 10px; color: var(--ink); }
+.empty { padding: 28px; border: 1px solid var(--line); background: rgba(255,255,255,.35); font: 400 1.45rem/1.35 var(--serif); }
+.finding { margin-bottom: 16px; border: 1px solid var(--line); background: rgba(255,255,255,.22); overflow: hidden; }
+.finding-header { display: grid; grid-template-columns: 76px 1fr auto auto; align-items: center; gap: 14px; min-height: 76px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.finding-id { font: 700 .7rem/1 var(--mono); letter-spacing: .08em; }
+.finding-title { font: 400 1.48rem/1.1 var(--serif); }
+.badge { padding: 7px 10px 6px; border: 1px solid currentColor; border-radius: 999px; font-size: .62rem; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap; }
+.sev-high { color: #b5302d; }.sev-medium { color: #7d5c00; }.sev-low { color: #256349; }
+.state-open { color: #b5302d; background: #ffe2dc; }.state-fixed { color: #1c533d; background: var(--acid); }
+.state-regressed { color: #11130f; background: var(--coral); }.state-unverified { color: #4d5049; background: #dedbd2; }
+.finding-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.field { min-height: 112px; padding: 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.field:nth-child(even) { border-right: 0; }
+.field-label { margin-bottom: 7px; color: #62665d; font-size: .62rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+.field-value { font-size: .86rem; }
+code { padding: 3px 6px; border: 1px solid var(--line); background: rgba(255,255,255,.4); font: .78rem var(--mono); }
+footer { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); color: #62665d; font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+@media (max-width: 760px) {
+  body { padding: 0; }.report-shell { padding: 22px; }.report-intro { grid-template-columns: 1fr; }.finding-header { grid-template-columns: 58px 1fr; }.badge { justify-self: start; }.finding-body { grid-template-columns: 1fr; }.field { border-right: 0; }
 }
 """
 
@@ -172,11 +154,12 @@ def write_html(report: dict, out_path: str | Path) -> None:
   <title>SiteCheck — relatório</title>
   <style>{_CSS}</style>
 </head>
-<body>
-  <h1>SiteCheck — relatório</h1>
-  <p class="meta">Arquivo verificado: <code>{checked}</code> &nbsp;·&nbsp; {ts} &nbsp;·&nbsp; {summary}</p>
-  {body_content}
-  <footer>Gerado por SiteCheck · stdlib Python 3 · sem serviços externos</footer>
+<body><main class="report-shell">
+  <header class="report-header"><span class="brand">SiteCheck</span><span class="edition">Relatório / 01</span></header>
+  <section class="report-intro"><div><p class="eyebrow">Revisão verificável</p><h1>Relatório<br>de achados.</h1></div><p class="meta"><code>{checked}</code>{ts}<br>{summary}</p></section>
+{body_content}
+  <footer><span>SiteCheck · Python 3</span><span>Local · sem serviços externos</span></footer>
+</main>
 </body>
 </html>"""
 

@@ -111,24 +111,23 @@ def _sort_by_severity(findings: list) -> list:
 
 _COMPARISON_EXTRA_CSS = """
 .summary-bar {
-  display: flex; gap: 1.5rem; margin-bottom: 2rem;
-  padding: 1rem 1.25rem;
-  background: #f7f8fa; border: 1px solid #e5e7eb; border-radius: 6px;
+  display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 38px;
+  border: 1px solid var(--line); background: var(--ink); color: var(--paper);
 }
-.summary-item { font-size: 0.85rem; }
-.summary-label { color: #57606a; margin-right: 0.35rem; }
-.summary-value { font-weight: 600; }
+.summary-item { display: flex; flex-direction: column-reverse; gap: 10px; min-height: 126px; padding: 18px; border-right: 1px solid rgba(242,238,228,.22); }
+.summary-item:last-child { border-right: 0; }
+.summary-label { color: rgba(242,238,228,.72); font-size: .62rem; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
+.summary-value { font: 400 3.5rem/1 var(--serif); }
 .fixed-section-label {
-  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.05em; color: #57606a;
-  margin: 1.5rem 0 0.75rem; padding-bottom: 0.35rem;
-  border-bottom: 1px solid #e5e7eb;
+  margin: 38px 0 12px; padding-bottom: 9px; border-bottom: 1px solid var(--line);
+  font-size: .66rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase;
 }
 .scope-note {
-  margin-top: 1.5rem; padding: 0.75rem 1rem;
-  background: #f7f8fa; border: 1px solid #e5e7eb; border-radius: 6px;
-  font-size: 0.82rem; color: #57606a;
+  margin-top: 38px; padding: 18px 20px 18px 56px; border: 1px solid var(--ink);
+  background: var(--acid); font: 400 1.02rem/1.45 var(--serif); position: relative;
 }
+.scope-note::before { content: "↳"; position: absolute; left: 20px; top: 15px; font: 700 1.25rem var(--sans); }
+@media (max-width: 760px) { .summary-bar { grid-template-columns: 1fr; }.summary-item { border-right: 0; border-bottom: 1px solid rgba(242,238,228,.22); } }
 """
 
 
@@ -202,15 +201,16 @@ def write_comparison_html(comparison: dict, out_path: str | Path) -> None:
   <title>SiteCheck — comparação antes/depois</title>
   <style>{combined_css}</style>
 </head>
-<body>
-  <h1>SiteCheck — comparação antes/depois</h1>
-  <p class="meta">Arquivo verificado: <code>{checked}</code> &nbsp;·&nbsp; {ts}</p>
-  {summary_html}
-  {open_html}
-  {regressed_html}
-  {fixed_html}
-  {scope_note}
-  <footer>Gerado por SiteCheck · stdlib Python 3 · sem serviços externos</footer>
+<body><main class="report-shell">
+  <header class="report-header"><span class="brand">SiteCheck</span><span class="edition">Antes / Depois</span></header>
+  <section class="report-intro"><div><p class="eyebrow">Reverificação</p><h1>O que<br>mudou.</h1></div><p class="meta"><code>{checked}</code>{ts}<br>Mesmos testes, dois estados comparáveis.</p></section>
+{summary_html}
+{open_html}
+{regressed_html}
+{fixed_html}
+{scope_note}
+  <footer><span>SiteCheck · Python 3</span><span>Decisão humana · evidência local</span></footer>
+</main>
 </body>
 </html>"""
 
