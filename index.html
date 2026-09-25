@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIGUEIRA — direção de arte e experiências digitais</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>FIGUEIRA</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <!-- FALHA 3: destino inexistente -->
+      <a href="contato.html">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <!-- FALHA 1: imagem sem texto alternativo -->
+      <img src="hero.jpg">
+      <p>Direção de arte, experiências digitais e protótipos assistidos por IA.</p>
+    </section>
+
+    <section class="newsletter">
+      <h2>Receba novidades</h2>
+      <form action="#" method="post">
+        <!-- FALHA 2: campo sem rótulo associado -->
+        <input type="email" id="email-input" placeholder="seu@email.com">
+        <button type="submit">Inscrever</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 FIGUEIRA</p>
+  </footer>
+
+</body>
+</html>
