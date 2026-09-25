@@ -115,7 +115,9 @@ footer { display: flex; justify-content: space-between; align-items: center; min
 .figueira-signature { display: flex; align-items: center; gap: 16px; }
 .figueira-signature img { width: 54px; height: 54px; object-fit: cover; }
 .figueira-signature span, .footer-links { font-size: .67rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.figueira-signature a { text-decoration-color: var(--acid); text-underline-offset: 4px; }
 .footer-links { display: flex; align-items: flex-end; gap: 14px; flex-direction: column; }
+.footer-links > div { display: flex; gap: 18px; }
 
 @media (max-width: 980px) {
   .hero { grid-template-columns: 1fr; gap: 50px; min-height: auto; }
@@ -159,6 +161,7 @@ footer { display: flex; justify-content: space-between; align-items: center; min
   .bob-note { padding: 28px; }
   footer { align-items: flex-start; gap: 40px; flex-direction: column; }
   .footer-links { align-items: flex-start; }
+  .footer-links > div { align-items: flex-start; gap: 10px 16px; flex-wrap: wrap; }
 }
 
 @media (prefers-reduced-motion: reduce) {
