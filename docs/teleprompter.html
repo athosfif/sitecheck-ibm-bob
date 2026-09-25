@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SiteCheck — Teleprompter</title>
+  <style>
+    :root { --ink:#f2eee4; --black:#0c0e0c; --acid:#d8ff55; --cobalt:#5b63ff; --muted:#92978d; --size:54px; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--black); font-family:"Avenir Next",Avenir,"Helvetica Neue",Arial,sans-serif; }
+    body.mirrored .prompter { transform:scaleX(-1); }
+    .progress { position:fixed; inset:0 0 auto; z-index:10; height:5px; background:#262a25; }
+    .progress span { display:block; width:0; height:100%; background:var(--acid); }
+    .controls { position:fixed; z-index:9; left:50%; bottom:22px; display:flex; align-items:center; gap:10px; width:min(1040px,calc(100% - 32px)); padding:12px; transform:translateX(-50%); border:1px solid #3d423b; background:rgba(12,14,12,.94); backdrop-filter:blur(12px); }
+    button { min-height:44px; padding:0 18px; border:1px solid #60675d; color:var(--ink); background:transparent; font:700 12px/1 inherit; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; }
+    button.primary { color:var(--black); background:var(--acid); border-color:var(--acid); }
+    label { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    input[type="range"] { width:120px; accent-color:var(--acid); }
+    .timer { margin-left:auto; min-width:90px; font:700 18px/1 "SFMono-Regular",Consolas,monospace; text-align:right; }
+    .prompter { width:min(1120px,calc(100% - 64px)); margin:auto; padding:36vh 0 42vh; transform-origin:center; }
+    .intro { margin-bottom:80px; color:var(--muted); font-size:14px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
+    .intro strong { display:block; margin-top:12px; color:var(--ink); font:400 58px/.95 "Iowan Old Style",Baskerville,Georgia,serif; letter-spacing:-.04em; text-transform:none; }
+    .segment { margin:0 0 26vh; opacity:.22; transition:opacity .3s ease; }
+    .segment.active { opacity:1; }
+    .cue { display:inline-block; margin-bottom:20px; padding:7px 10px; border:1px solid var(--cobalt); color:#bbc0ff; font-size:12px; font-weight:750; letter-spacing:.12em; text-transform:uppercase; }
+    .segment p { margin:0; font:600 var(--size)/1.28 "Avenir Next",Avenir,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.025em; }
+    .em { color:var(--acid); }
+    .end { padding-top:40px; border-top:1px solid #3d423b; color:var(--muted); font-size:18px; letter-spacing:.12em; text-transform:uppercase; }
+    .help { position:fixed; z-index:8; top:20px; right:24px; color:#737970; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    @media (max-width:780px) {
+      :root { --size:38px; }
+      .prompter { width:calc(100% - 36px); }
+      .controls { flex-wrap:wrap; }
+      .controls label { display:none; }
+      .timer { margin-left:0; }
+      .help { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress"><span id="progress"></span></div>
+  <div class="help">Space: play/pause · R: reset · F: full screen · M: mirror</div>
+
+  <main class="prompter">
+    <div class="intro">SiteCheck / IBM Bob 2.0<strong>Ready when you are.</strong></div>
+
+    <section class="segment" data-start="0">
+      <span class="cue">00:00 · FIGUEIRA homepage</span>
+      <p>Hi, I’m Athos. I work where design, communication, and practical AI workflows meet.</p>
+    </section>
+
+    <section class="segment" data-start="8">
+      <span class="cue">00:08 · Open the demo</span>
+      <p>For this challenge, I built SiteCheck with IBM Bob: a focused review loop for people who maintain small websites and need <span class="em">evidence</span> they can actually act on.</p>
+    </section>
+
+    <section class="segment" data-start="22">
+      <span class="cue">00:22 · Show the three findings</span>
+      <p>This demo has three intentional problems: an image without alternative text, a form field without a proper label, and a broken internal link. SiteCheck runs deterministic local checks and turns each problem into a finding with a stable ID, severity, location, evidence, and a recommendation.</p>
+    </section>
+
+    <section class="segment" data-start="48">
+      <span class="cue">00:48 · Show the label correction</span>
+      <p>The important part is the recheck. I chose the missing form label first because it directly affects how a user understands the field, and the correction is small and easy to verify.</p>
+    </section>
+
+    <section class="segment" data-start="64">
+      <span class="cue">01:04 · Comparison: 2 / 1 / 0</span>
+      <p>After the change, I run the <span class="em">same checks</span> again. The comparison shows <span class="em">one verified fix</span>, two findings still open by decision, and zero new regressions. The project has forty-two passing tests.</p>
+    </section>
+
+    <section class="segment" data-start="82">
+      <span class="cue">01:22 · Tests and IBM Bob sessions</span>
+      <p>IBM Bob helped me plan and implement the Python workflow across three documented sessions. I kept product scope, prioritization, code review, and art direction under <span class="em">human control</span>. That review mattered: I found and corrected a state-handling issue that could have hidden a new regression.</p>
+    </section>
+
+    <section class="segment" data-start="106">
+      <span class="cue">01:46 · Return to comparison</span>
+      <p>SiteCheck is intentionally focused. It does not claim to audit an entire website. It creates a clear, reproducible loop: find a problem, decide what matters, fix it, and <span class="em">prove the result</span>.</p>
+    </section>
+
+    <div class="end">End · hold the final screen for three seconds</div>
+  </main>
+
+  <nav class="controls" aria-label="Teleprompter controls">
+    <button class="primary" id="play">Start</button>
+    <button id="reset">Reset</button>
+    <label>Speed <input id="speed" type="range" min="0.75" max="1.25" value="1" step="0.05"><output id="speedValue">1.00×</output></label>
+    <label>Type <input id="type" type="range" min="36" max="76" value="54" step="2"><output id="typeValue">54</output></label>
+    <button id="mirror">Mirror</button>
+    <button id="full">Full screen</button>
+    <span class="timer" id="timer">02:00</span>
+  </nav>
+
+  <script>
+    const TOTAL = 120;
+    const segments = [...document.querySelectorAll('.segment')];
+    const play = document.querySelector('#play');
+    const timer = document.querySelector('#timer');
+    const progress = document.querySelector('#progress');
+    const speed = document.querySelector('#speed');
+    const type = document.querySelector('#type');
+    let elapsed = 0, running = false, last = 0, activeIndex = -1;
+
+    function format(seconds) {
+      const left = Math.max(0, Math.ceil(TOTAL - seconds));
+      return `${String(Math.floor(left / 60)).padStart(2,'0')}:${String(left % 60).padStart(2,'0')}`;
+    }
+    function render() {
+      timer.textContent = format(elapsed);
+      progress.style.width = `${Math.min(100, elapsed / TOTAL * 100)}%`;
+      let next = 0;
+      segments.forEach((segment, index) => {
+        if (elapsed >= Number(segment.dataset.start)) next = index;
+      });
+      if (next !== activeIndex) {
+        activeIndex = next;
+        segments.forEach((segment, index) => segment.classList.toggle('active', index === activeIndex));
+        segments[activeIndex].scrollIntoView({behavior:'smooth', block:'center'});
+      }
+      if (elapsed >= TOTAL) {
+        running = false;
+        play.textContent = 'Replay';
+      }
+    }
+    function tick(now) {
+      if (!last) last = now;
+      if (running) elapsed += ((now - last) / 1000) * Number(speed.value);
+      last = now;
+      render();
+      requestAnimationFrame(tick);
+    }
+    function toggle() {
+      if (elapsed >= TOTAL) resetAll();
+      running = !running;
+      play.textContent = running ? 'Pause' : 'Start';
+    }
+    function resetAll() {
+      running = false; elapsed = 0; activeIndex = -1; play.textContent = 'Start';
+      window.scrollTo({top:0, behavior:'smooth'}); render();
+    }
+    play.addEventListener('click', toggle);
+    document.querySelector('#reset').addEventListener('click', resetAll);
+    speed.addEventListener('input', () => document.querySelector('#speedValue').textContent = `${Number(speed.value).toFixed(2)}×`);
+    type.addEventListener('input', () => {
+      document.documentElement.style.setProperty('--size', `${type.value}px`);
+      document.querySelector('#typeValue').textContent = type.value;
+    });
+    document.querySelector('#mirror').addEventListener('click', () => document.body.classList.toggle('mirrored'));
+    document.querySelector('#full').addEventListener('click', () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen());
+    document.addEventListener('keydown', event => {
+      if (event.code === 'Space') { event.preventDefault(); toggle(); }
+      if (event.key.toLowerCase() === 'r') resetAll();
+      if (event.key.toLowerCase() === 'm') document.body.classList.toggle('mirrored');
+      if (event.key.toLowerCase() === 'f') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+      if (event.key === 'ArrowUp') speed.value = Math.min(1.25, Number(speed.value) + .05);
+      if (event.key === 'ArrowDown') speed.value = Math.max(.75, Number(speed.value) - .05);
+      document.querySelector('#speedValue').textContent = `${Number(speed.value).toFixed(2)}×`;
+    });
+    render(); requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

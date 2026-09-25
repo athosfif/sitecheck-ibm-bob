@@ -1,0 +1,64 @@
+1
+00:00:00,400 --> 00:00:06,000
+Hi, I’m Athos. I work where design, communication,
+and practical AI workflows meet.
+
+2
+00:00:06,000 --> 00:00:12,000
+For this challenge, I built SiteCheck with IBM Bob:
+a focused review loop for small websites.
+
+3
+00:00:12,000 --> 00:00:17,000
+It gives people evidence
+they can actually act on.
+
+4
+00:00:17,000 --> 00:00:27,000
+This demo has three intentional problems:
+missing alt text, a missing label, and a broken link.
+
+5
+00:00:27,000 --> 00:00:36,800
+SiteCheck turns each problem into a finding with an ID,
+severity, location, evidence, and recommendation.
+
+6
+00:00:37,000 --> 00:00:43,000
+The important part is the recheck.
+I chose the missing form label first.
+
+7
+00:00:43,000 --> 00:00:50,000
+It affects how a user understands the field,
+and the correction is easy to verify.
+
+8
+00:00:50,000 --> 00:00:57,000
+After the change, I run the same checks again:
+one verified fix and two findings still open.
+
+9
+00:00:57,000 --> 00:01:00,700
+There are zero new regressions,
+and the project has forty-two passing tests.
+
+10
+00:01:01,000 --> 00:01:09,500
+IBM Bob helped me plan and implement the Python workflow
+across three documented sessions.
+
+11
+00:01:09,500 --> 00:01:18,000
+I kept product scope, prioritization, code review,
+and art direction under human control.
+
+12
+00:01:18,000 --> 00:01:24,500
+That review caught a state-handling issue
+that could have hidden a new regression.
+
+13
+00:01:24,500 --> 00:01:30,600
+Find a problem, decide what matters,
+fix it, and prove the result.

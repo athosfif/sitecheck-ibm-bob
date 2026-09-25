@@ -1,0 +1,13 @@
+Hi, I’m Athos. I work where design, communication, and practical AI workflows meet.
+
+For this challenge, I built SiteCheck with IBM Bob: a focused review loop for people who maintain small websites and need evidence they can actually act on.
+
+This demo has three intentional problems: an image without alternative text, a form field without a proper label, and a broken internal link. SiteCheck runs deterministic local checks and turns each problem into a finding with a stable ID, severity, location, evidence, and a recommendation.
+
+The important part is the recheck. I chose the missing form label first because it directly affects how a user understands the field, and the correction is small and easy to verify.
+
+After the change, I run the same checks again. The comparison shows one verified fix, two findings still open by decision, and zero new regressions. The project has forty-two passing tests.
+
+IBM Bob helped me plan and implement the Python workflow across three documented sessions. I kept product scope, prioritization, code review, and art direction under human control. That review mattered: I found and corrected a state-handling issue that could have hidden a new regression.
+
+SiteCheck is intentionally focused. It does not claim to audit an entire website. It creates a clear, reproducible loop: find a problem, decide what matters, fix it, and prove the result.
