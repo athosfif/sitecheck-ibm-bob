@@ -37,6 +37,11 @@ The suite includes 42 unit tests covering all three checkers, the report schema,
 
 ## Demo
 
+Try the interactive browser prototype:
+https://athosfif.github.io/sitecheck-ibm-bob/
+
+The online prototype accepts pasted HTML or local HTML files, runs the same three focused review rules in the browser, applies the demonstrated form-label fix, rechecks the result, and exports the evidence as JSON. Files stay in the browser and are not uploaded.
+
 The final video includes a real run of the analyzer, the before/after comparison, and the complete test suite:
 https://youtu.be/Esc6inzvVJw
 
