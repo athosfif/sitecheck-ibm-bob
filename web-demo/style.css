@@ -111,13 +111,18 @@ textarea:focus { box-shadow: 0 0 0 4px var(--cobalt); }
 .bob-note h2 { font-size: clamp(2.5rem, 4.6vw, 5.3rem); }
 .bob-note > p { margin: 0; font-size: 1.05rem; }
 
-footer { display: flex; justify-content: space-between; align-items: center; min-height: 180px; padding: 32px; color: var(--paper); background: var(--ink); }
+footer { display: flex; justify-content: space-between; align-items: center; min-height: 180px; padding: 40px 44px; color: var(--paper); background: var(--ink); }
 .figueira-signature { display: flex; align-items: center; gap: 16px; }
-.figueira-signature img { width: 54px; height: 54px; object-fit: cover; }
+.figueira-signature img { display: block; width: 64px; height: 64px; padding: 5px; object-fit: contain; object-position: center; }
 .figueira-signature span, .footer-links { font-size: .67rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .figueira-signature a { text-decoration-color: var(--acid); text-underline-offset: 4px; }
-.footer-links { display: flex; align-items: flex-end; gap: 14px; flex-direction: column; }
-.footer-links > div { display: flex; gap: 18px; }
+.footer-links { display: flex; align-items: flex-end; gap: 20px; flex-direction: column; }
+.social-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.social-links a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 13px; border: 1px solid rgba(242, 238, 228, .24); text-decoration: none; transition: border-color .18s ease, color .18s ease, background .18s ease; }
+.social-links a:hover { border-color: var(--acid); color: var(--ink); background: var(--acid); }
+.social-links svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.social-links .icon-fill { fill: currentColor; stroke: none; }
+.footer-location { color: rgba(242, 238, 228, .68); }
 
 @media (max-width: 980px) {
   .hero { grid-template-columns: 1fr; gap: 50px; min-height: auto; }
@@ -161,7 +166,7 @@ footer { display: flex; justify-content: space-between; align-items: center; min
   .bob-note { padding: 28px; }
   footer { align-items: flex-start; gap: 40px; flex-direction: column; }
   .footer-links { align-items: flex-start; }
-  .footer-links > div { align-items: flex-start; gap: 10px 16px; flex-wrap: wrap; }
+  .social-links { justify-content: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
