@@ -50,6 +50,23 @@ O diretório `demo-site/` contém uma página com falhas intencionais usada para
 SC-001 e SC-003 foram mantidos abertos intencionalmente para demonstrar que a ferramenta
 prioriza correções — não exige resolver tudo de uma vez.
 
+## Direção de arte
+
+A demonstração e os relatórios usam o mesmo sistema visual: papel quente, preto profundo,
+verde ácido para confirmação, azul cobalto para identidade e coral para alerta. Títulos em
+serifa editorial criam contraste com a interface funcional em sans-serif e dados em
+monoespaçada.
+
+O sistema é autocontido e usa apenas fontes do sistema, sem depender de CDN ou serviço
+externo. A composição, a ilustração vetorial e a hierarquia foram desenhadas para tornar a
+evidência técnica legível sem apagar o caráter autoral do projeto.
+
+![Página de demonstração com direção de arte](docs/evidence/sitecheck-demo-designed.png)
+
+![Comparação antes e depois](docs/evidence/sitecheck-comparison-designed.png)
+
+Decisões e especificações visuais: [`docs/ART-DIRECTION.md`](docs/ART-DIRECTION.md).
+
 ## Estrutura
 
 ```
