@@ -95,9 +95,12 @@ python3 -m unittest discover test
 - IBM Bob evidence: `docs/evidence/bob-session-01-planning.png`,
   `bob-session-02-implementation.png`, `bob-session-03-recheck.png`
 - Demo script: `docs/DEMO-SCRIPT.md`
+- Live verification script: `tools/live_demo.sh`
+- Final demo video: `SiteCheck-final-competitive-1080p.mp4`
+- Published demo: https://youtu.be/Esc6inzvVJw (unlisted)
 
 ## Links to add before submission
 
 - Public repository: `[ADD URL]`
-- Demo video: `[ADD URL]`
+- Demo video: https://youtu.be/Esc6inzvVJw
 - Team / participant profile: `[ADD URL]`

@@ -39,6 +39,9 @@ python3 -m unittest discover test
 
 ## Demo
 
+Vídeo final com execução real do analisador, comparação antes/depois e suíte de testes:
+https://youtu.be/Esc6inzvVJw
+
 O diretório `demo-site/` contém uma página com falhas intencionais usada para demonstrar o fluxo antes/depois:
 
 | ID     | Falha                                           | Severidade | Estado após sessão 03 |
