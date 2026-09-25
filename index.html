@@ -3,46 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FIGUEIRA — art direction and digital experiences</title>
+  <meta name="description" content="Run SiteCheck in your browser: find, prioritize, fix, and verify focused website issues.">
+  <title>SiteCheck — live website review loop</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#workspace">Skip to the review workspace</a>
 
-  <header>
-    <h1 class="wordmark">FIGUEIRA</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="sobre.html">About</a>
-      <!-- FALHA 3: destino inexistente -->
-      <a href="contato.html">Contact</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="SiteCheck home">
+      <span class="brand-mark" aria-hidden="true">S/</span>
+      <span>SiteCheck</span>
+    </a>
+    <nav aria-label="Project links">
+      <a href="https://github.com/athosfif/sitecheck-ibm-bob" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://youtu.be/Esc6inzvVJw" target="_blank" rel="noreferrer">Demo film</a>
     </nav>
   </header>
 
-  <main>
-    <section class="hero">
+  <main id="top">
+    <section class="hero" aria-labelledby="page-title">
       <div class="hero-copy">
-        <p class="kicker">Independent studio · 2026</p>
-        <h2>Form with<br>purpose.</h2>
-        <p>Art direction, digital experiences, and AI-assisted prototypes — with human decisions at every step.</p>
+        <p class="eyebrow">IBM Bob 2.0 Hackathon · Interactive prototype</p>
+        <h1 id="page-title">Find the issue.<br><em>Prove the fix.</em></h1>
+        <p class="lede">A focused review loop for people who maintain small websites and need evidence they can act on.</p>
       </div>
-      <!-- FALHA 1: imagem sem texto alternativo -->
-      <figure><img src="hero-art.svg"></figure>
+      <div class="hero-proof" aria-label="Project proof points">
+        <div><strong>03</strong><span>deterministic checks</span></div>
+        <div><strong>42</strong><span>tests passing</span></div>
+        <div><strong>00</strong><span>paid services</span></div>
+      </div>
     </section>
 
-    <section class="newsletter">
-      <h2>Stay in the loop</h2>
-      <form action="#" method="post">
-        <!-- CORREÇÃO SC-002: label associado ao campo pelo atributo for -->
-        <label for="email-input">Email address</label>
-        <input type="email" id="email-input" placeholder="you@email.com">
-        <button type="submit">Subscribe</button>
-      </form>
+    <section class="process" aria-label="SiteCheck process">
+      <span>01 · Inspect</span><i aria-hidden="true"></i>
+      <span>02 · Decide</span><i aria-hidden="true"></i>
+      <span>03 · Fix</span><i aria-hidden="true"></i>
+      <span>04 · Recheck</span>
+    </section>
+
+    <section class="workspace" id="workspace" aria-labelledby="workspace-title">
+      <div class="workspace-heading">
+        <div>
+          <p class="section-index">Live / 01</p>
+          <h2 id="workspace-title">Review an HTML page</h2>
+        </div>
+        <p>Paste your markup or use the intentionally flawed sample. Everything runs locally in this browser.</p>
+      </div>
+
+      <div class="work-grid">
+        <div class="editor-panel">
+          <div class="panel-bar">
+            <span>index.html</span>
+            <span class="local-badge">Local only</span>
+          </div>
+
+          <label class="editor-label" for="html-input">HTML source</label>
+          <textarea id="html-input" spellcheck="false" aria-describedby="editor-help"></textarea>
+          <p id="editor-help" class="sr-only">Edit the HTML source, then choose Run review.</p>
+
+          <div class="file-row">
+            <label class="file-label" for="file-input">Upload HTML files</label>
+            <input id="file-input" type="file" accept=".html,.htm,text/html" multiple>
+            <span id="file-status">Sample file set: index.html, about.html</span>
+          </div>
+
+          <div class="actions">
+            <button class="button primary" id="run-button" type="button">Run review <span aria-hidden="true">↗</span></button>
+            <button class="button secondary" id="fix-button" type="button" disabled>Apply label fix</button>
+            <button class="text-button" id="sample-button" type="button">Reset sample</button>
+          </div>
+        </div>
+
+        <aside class="results-panel" aria-labelledby="results-title" aria-live="polite">
+          <div class="panel-bar dark">
+            <span id="results-title">Review result</span>
+            <span id="run-status">Ready</span>
+          </div>
+
+          <div class="empty-state" id="empty-state">
+            <span class="empty-number">00</span>
+            <p>Run the review to turn markup into clear, reproducible evidence.</p>
+          </div>
+
+          <div class="results-content" id="results-content" hidden>
+            <div class="metric-grid" aria-label="Review summary">
+              <div><strong id="open-count">0</strong><span>open</span></div>
+              <div><strong id="fixed-count">0</strong><span>fixed</span></div>
+              <div><strong id="regression-count">0</strong><span>regressions</span></div>
+            </div>
+            <div class="result-meta">
+              <span id="result-time">Completed locally</span>
+              <button class="download-button" id="download-button" type="button">Export JSON</button>
+            </div>
+            <div class="findings" id="findings"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="meaning" aria-labelledby="meaning-title">
+      <p class="section-index">Method / 02</p>
+      <div>
+        <h2 id="meaning-title">Small scope.<br>Explicit evidence.</h2>
+        <p>SiteCheck does not claim to replace a complete accessibility or quality audit. It makes three objective patterns visible, records the human decision, and runs the same checks again after a change.</p>
+      </div>
+      <ol>
+        <li><span>SC-001</span> Image missing alternative text</li>
+        <li><span>SC-002</span> Form field missing an associated label</li>
+        <li><span>SC-003</span> Internal link points to a missing destination</li>
+      </ol>
+    </section>
+
+    <section class="bob-note" aria-labelledby="bob-title">
+      <div>
+        <p class="section-index">Authorship / 03</p>
+        <h2 id="bob-title">Built with IBM Bob.<br>Directed by human judgment.</h2>
+      </div>
+      <p>IBM Bob supported planning, implementation, testing, and the verified recheck workflow across three documented sessions. Product scope, prioritization, code review, and art direction remained human decisions.</p>
     </section>
   </main>
 
   <footer>
-    <p>© 2026 FIGUEIRA</p><p>São Paulo · Brazil</p>
+    <div class="figueira-signature">
+      <img src="figueira-symbol-white.png" alt="Figueira symbol">
+      <span>Designed and built by Athos Figueiredo</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/athosfif/sitecheck-ibm-bob" target="_blank" rel="noreferrer">Source and evidence</a>
+      <span>São Paulo · 2026</span>
+    </div>
   </footer>
 
+  <script src="app.js"></script>
 </body>
 </html>
