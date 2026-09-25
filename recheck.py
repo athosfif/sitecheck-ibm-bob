@@ -25,36 +25,36 @@ def _print_comparison(comp: dict) -> None:
     summary = comp.get("comparison_summary", {})
     checked = comp.get("checked_file", "")
 
-    print(f"\nSiteCheck — comparação antes/depois")
-    print(f"Arquivo: {checked}")
+    print(f"\nSiteCheck — before/after comparison")
+    print(f"File: {checked}")
     print("─" * 52)
-    print(f"  Corrigidos nesta sessão : {summary.get('fixed', 0)}")
-    print(f"  Ainda abertos           : {summary.get('still_open', 0)}")
-    print(f"  Novos / regredidos      : {summary.get('regressed', 0)}")
+    print(f"  Fixed this session : {summary.get('fixed', 0)}")
+    print(f"  Still open         : {summary.get('still_open', 0)}")
+    print(f"  New / regressed    : {summary.get('regressed', 0)}")
     print("─" * 52)
 
     for f in comp["findings"]:
         sev   = _SEVERITY_LABEL.get(f["severity"], f["severity"])
         state = _STATE_LABEL.get(f["state"], f["state"])
         print(f"\n[{f['id']}] {f['title']}")
-        print(f"  Severidade : {sev}")
-        print(f"  Estado     : {state}")
+        print(f"  Severity : {sev}")
+        print(f"  State    : {state}")
         if f.get("recheck_result"):
-            print(f"  Reverif.   : {f['recheck_result']}")
+            print(f"  Recheck  : {f['recheck_result']}")
 
     print()
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(
-        description="Compara dois relatórios SiteCheck e gera artefato antes/depois.",
+        description="Compares two SiteCheck reports and generates a before/after artifact.",
     )
-    parser.add_argument("before_json", help="Caminho para o report.json do estado anterior.")
-    parser.add_argument("after_json",  help="Caminho para o report.json do estado posterior.")
+    parser.add_argument("before_json", help="Path to the earlier report.json.")
+    parser.add_argument("after_json",  help="Path to the later report.json.")
     parser.add_argument(
         "--out-dir",
         default="sitecheck-output/comparison",
-        help="Diretório de saída (padrão: sitecheck-output/comparison).",
+        help="Output directory (default: sitecheck-output/comparison).",
     )
     args = parser.parse_args(argv)
 
@@ -63,7 +63,7 @@ def main(argv=None):
 
     for p in (before_path, after_path):
         if not p.exists():
-            print(f"Erro: arquivo não encontrado — {p}", file=sys.stderr)
+            print(f"Error: file not found — {p}", file=sys.stderr)
             sys.exit(1)
 
     before = json.loads(before_path.read_text(encoding="utf-8"))
@@ -82,7 +82,7 @@ def main(argv=None):
 
     _print_comparison(comp)
 
-    print(f"Comparação salva em:")
+    print(f"Comparison saved to:")
     print(f"  JSON  → {json_out}")
     print(f"  HTML  → {html_out}\n")
 

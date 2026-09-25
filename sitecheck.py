@@ -34,8 +34,8 @@ def _print_summary(report: dict) -> None:
 
     if not findings:
         print(
-            "Nenhuma falha encontrada pelos testes executados.\n"
-            "Isso não equivale a uma declaração de que o site está livre de problemas."
+            "No issues were found by the checks that were run.\n"
+            "This does not mean the site is free of all problems."
         )
         print("─" * 52)
         return
@@ -44,27 +44,27 @@ def _print_summary(report: dict) -> None:
         sev   = _SEVERITY_LABEL.get(f["severity"], f["severity"])
         state = _STATE_LABEL.get(f["state"], f["state"])
         print(f"\n[{f['id']}] {f['title']}")
-        print(f"  Severidade : {sev}")
-        print(f"  Estado     : {state}")
-        print(f"  Local      : {f['location']}")
-        print(f"  Evidência  : {f['evidence']}")
-        print(f"  Correção   : {f['recommendation']}")
+        print(f"  Severity : {sev}")
+        print(f"  State    : {state}")
+        print(f"  Location : {f['location']}")
+        print(f"  Evidence : {f['evidence']}")
+        print(f"  Fix      : {f['recommendation']}")
 
     print("\n" + "─" * 52)
     n = len(findings)
-    print(f"{n} achado{'s' if n != 1 else ''} encontrado{'s' if n != 1 else ''}.")
+    print(f"{n} finding{'s' if n != 1 else ''} found.")
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(
-        description="Verifica um arquivo HTML e gera relatório de achados.",
+        description="Checks an HTML file and generates a findings report.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("html_file", help="Caminho para o arquivo HTML a verificar.")
+    parser.add_argument("html_file", help="Path to the HTML file to check.")
     parser.add_argument(
         "--out-dir",
         default="sitecheck-output",
-        help="Diretório de saída para report.json e report.html (padrão: sitecheck-output).",
+        help="Output directory for report.json and report.html (default: sitecheck-output).",
     )
     args = parser.parse_args(argv)
 
@@ -72,7 +72,7 @@ def main(argv=None):
     # compartilhável e evita gravar o caminho pessoal da máquina do autor.
     html_path = Path(args.html_file)
     if not html_path.exists():
-        print(f"Erro: arquivo não encontrado — {html_path}", file=sys.stderr)
+        print(f"Error: file not found — {html_path}", file=sys.stderr)
         sys.exit(1)
 
     out_dir = Path(args.out_dir)
@@ -90,7 +90,7 @@ def main(argv=None):
 
     _print_summary(report)
 
-    print(f"\nRelatório salvo em:")
+    print(f"\nReport saved to:")
     print(f"  JSON  → {json_out}")
     print(f"  HTML  → {html_out}\n")
 

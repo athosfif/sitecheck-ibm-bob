@@ -1,41 +1,29 @@
 {
   "schema_version": "1",
   "checked_file": "demo-site/index.html",
-  "total_findings": 3,
+  "total_findings": 2,
   "findings": [
     {
       "id": "SC-001",
-      "title": "Imagem sem texto alternativo",
+      "title": "Image missing alternative text",
       "severity": "high",
       "file": "demo-site/index.html",
-      "location": "linha 24 — <img src=\"hero.jpg\">",
-      "reproduction": "Abra o arquivo com um leitor de tela ou valide em https://validator.w3.org. O atributo alt está ausente.",
-      "evidence": "<img src=\"hero.jpg\"> sem atributo alt na linha 24.",
-      "recommendation": "Adicione alt com uma descrição útil da imagem, por exemplo: alt=\"Imagem principal do portfólio\". Se a imagem for puramente decorativa, use alt=\"\".",
-      "state": "open",
-      "recheck_result": null
-    },
-    {
-      "id": "SC-002",
-      "title": "Campo de formulário sem rótulo associado",
-      "severity": "high",
-      "file": "demo-site/index.html",
-      "location": "linha 32 — <input type=\"email\" id=\"email-input\">",
-      "reproduction": "Inspecione o campo no DevTools: nenhum <label for> aponta para este id. Leitores de tela não anunciam um rótulo descritivo.",
-      "evidence": "<input id=\"email-input\"> na linha 32 não possui <label for=\"email-input\"> correspondente nem aria-label.",
-      "recommendation": "Adicione <label for=\"email-input\">Endereço de e-mail</label> antes do campo, ou use o atributo aria-label diretamente no input.",
+      "location": "line 29 — <img src=\"hero-art.svg\">",
+      "reproduction": "Open the file with a screen reader or validate it at https://validator.w3.org. The alt attribute is missing.",
+      "evidence": "<img src=\"hero-art.svg\"> has no alt attribute on line 29.",
+      "recommendation": "Add an alt attribute with a useful image description, for example: alt=\"Main portfolio image\". If the image is purely decorative, use alt=\"\".",
       "state": "open",
       "recheck_result": null
     },
     {
       "id": "SC-003",
-      "title": "Link interno apontando para destino inexistente",
+      "title": "Internal link points to a missing destination",
       "severity": "medium",
       "file": "demo-site/index.html",
-      "location": "linha 17 — <a href=\"contato.html\">",
-      "reproduction": "Clique no link ou abra contato.html a partir do diretório do site. O arquivo de destino não existe.",
-      "evidence": "<a href=\"contato.html\"> na linha 17; arquivo esperado em demo-site/contato.html não encontrado.",
-      "recommendation": "Crie o arquivo contato.html ou corrija o href para um destino que existe.",
+      "location": "line 17 — <a href=\"contato.html\">",
+      "reproduction": "Follow the link or open contato.html from the site directory. The destination file does not exist.",
+      "evidence": "<a href=\"contato.html\"> on line 17; the expected file at demo-site/contato.html was not found.",
+      "recommendation": "Create contato.html or update the href to point to an existing destination.",
       "state": "open",
       "recheck_result": null
     }

@@ -13,9 +13,9 @@ from pathlib import Path
 
 
 _SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2}
-_SEVERITY_LABEL = {"high": "Alta", "medium": "Média", "low": "Baixa"}
-_STATE_LABEL    = {"open": "Aberto", "fixed": "Corrigido",
-                   "regressed": "Regrediu", "unverified": "Não verificado"}
+_SEVERITY_LABEL = {"high": "High", "medium": "Medium", "low": "Low"}
+_STATE_LABEL    = {"open": "Open", "fixed": "Fixed",
+                   "regressed": "Regressed", "unverified": "Unverified"}
 
 MAX_FINDINGS = 3
 
@@ -96,13 +96,13 @@ def _finding_html(f: dict, index: int) -> str:
     state_label = _STATE_LABEL.get(f["state"], f["state"])
 
     fields = [
-        ("Arquivo / localização", _esc(f["location"])),
-        ("Como reproduzir",       _esc(f["reproduction"])),
-        ("Evidência",             _esc(f["evidence"])),
-        ("Correção recomendada",  _esc(f["recommendation"])),
+        ("File / location",       _esc(f["location"])),
+        ("How to reproduce",      _esc(f["reproduction"])),
+        ("Evidence",              _esc(f["evidence"])),
+        ("Recommended fix",       _esc(f["recommendation"])),
     ]
     if f.get("recheck_result"):
-        fields.append(("Resultado da reverificação", _esc(f["recheck_result"])))
+        fields.append(("Recheck result", _esc(f["recheck_result"])))
 
     fields_html = "".join(
         f'<div class="field">'
@@ -117,7 +117,7 @@ def _finding_html(f: dict, index: int) -> str:
         f'  <div class="finding-header">'
         f'    <span class="finding-id">{_esc(f["id"])}</span>'
         f'    <span class="finding-title">{_esc(f["title"])}</span>'
-        f'    <span class="badge {sev_class}">Severidade {sev_label}</span>'
+        f'    <span class="badge {sev_class}">Severity {sev_label}</span>'
         f'    <span class="badge {state_class}">{state_label}</span>'
         f'  </div>'
         f'  <div class="finding-body">{fields_html}</div>'
@@ -133,32 +133,31 @@ def write_html(report: dict, out_path: str | Path) -> None:
     if findings:
         body_content = "\n".join(_finding_html(f, i) for i, f in enumerate(findings))
         summary = (
-            f"{len(findings)} achado{'s' if len(findings) != 1 else ''} "
-            f"encontrado{'s' if len(findings) != 1 else ''} "
-            f"pelos testes executados."
+            f"{len(findings)} finding{'s' if len(findings) != 1 else ''} "
+            f"found by the checks that were run."
         )
     else:
         body_content = (
             '<div class="empty">'
-            'Nenhuma falha encontrada pelos testes executados. '
-            'Isso não equivale a uma declaração de que o site está livre de problemas.'
+            'No issues were found by the checks that were run. '
+            'This does not mean the site is free of all problems.'
             '</div>'
         )
-        summary = "Nenhum achado encontrado pelos testes executados."
+        summary = "No findings were detected by the checks that were run."
 
     html = f"""<!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SiteCheck — relatório</title>
+  <title>SiteCheck — report</title>
   <style>{_CSS}</style>
 </head>
 <body><main class="report-shell">
-  <header class="report-header"><span class="brand">SiteCheck</span><span class="edition">Relatório / 01</span></header>
-  <section class="report-intro"><div><p class="eyebrow">Revisão verificável</p><h1>Relatório<br>de achados.</h1></div><p class="meta"><code>{checked}</code>{ts}<br>{summary}</p></section>
+  <header class="report-header"><span class="brand">SiteCheck</span><span class="edition">Report / 01</span></header>
+  <section class="report-intro"><div><p class="eyebrow">Verifiable review</p><h1>Findings<br>report.</h1></div><p class="meta"><code>{checked}</code>{ts}<br>{summary}</p></section>
 {body_content}
-  <footer><span>SiteCheck · Python 3</span><span>Local · sem serviços externos</span></footer>
+  <footer><span>SiteCheck · Python 3</span><span>Local · no external services</span></footer>
 </main>
 </body>
 </html>"""

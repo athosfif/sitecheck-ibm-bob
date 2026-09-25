@@ -57,22 +57,22 @@ def check_img_alt(html_source: str, html_path: str) -> list[dict]:
             # alt="" e valido para imagens decorativas. A ausencia do
             # atributo e o caso objetivo que este checker consegue provar.
             if alt is None:
-                src = t["attrs"].get("src", "(sem src)")
+                src = t["attrs"].get("src", "(missing src)")
                 findings.append(make_finding(
                     id=FINDING_ID_IMG_ALT,
-                    title="Imagem sem texto alternativo",
+                    title="Image missing alternative text",
                     severity="high",
                     file=html_path,
-                    location=f"linha {t['line']} — <img src=\"{src}\">",
+                    location=f"line {t['line']} — <img src=\"{src}\">",
                     reproduction=(
-                        "Abra o arquivo com um leitor de tela ou valide em "
-                        "https://validator.w3.org. O atributo alt está ausente."
+                        "Open the file with a screen reader or validate it at "
+                        "https://validator.w3.org. The alt attribute is missing."
                     ),
-                    evidence=f"<img src=\"{src}\"> sem atributo alt na linha {t['line']}.",
+                    evidence=f"<img src=\"{src}\"> has no alt attribute on line {t['line']}.",
                     recommendation=(
-                        "Adicione alt com uma descrição útil da imagem, "
-                        "por exemplo: alt=\"Imagem principal do portfólio\". "
-                        "Se a imagem for puramente decorativa, use alt=\"\"."
+                        "Add an alt attribute with a useful image description, "
+                        "for example: alt=\"Main portfolio image\". "
+                        "If the image is purely decorative, use alt=\"\"."
                     ),
                     state="open",
                 ))
@@ -111,21 +111,21 @@ def check_label_for(html_source: str, html_path: str) -> list[dict]:
             inp_type = inp["attrs"].get("type", "text")
             findings.append(make_finding(
                 id=FINDING_ID_LABEL,
-                title="Campo de formulário sem rótulo associado",
+                title="Form field missing an associated label",
                 severity="high",
                 file=html_path,
-                location=f"linha {inp['line']} — <input type=\"{inp_type}\" id=\"{inp_id}\">",
+                location=f"line {inp['line']} — <input type=\"{inp_type}\" id=\"{inp_id}\">",
                 reproduction=(
-                    "Inspecione o campo no DevTools: nenhum <label for> aponta "
-                    "para este id. Leitores de tela não anunciam um rótulo descritivo."
+                    "Inspect the field in DevTools: no <label for> targets "
+                    "this id. Screen readers do not announce a descriptive label."
                 ),
                 evidence=(
-                    f"<input id=\"{inp_id}\"> na linha {inp['line']} não possui "
-                    f"<label for=\"{inp_id}\"> correspondente nem aria-label."
+                    f"<input id=\"{inp_id}\"> on line {inp['line']} has no matching "
+                    f"<label for=\"{inp_id}\"> and no aria-label."
                 ),
                 recommendation=(
-                    f"Adicione <label for=\"{inp_id}\">Endereço de e-mail</label> "
-                    "antes do campo, ou use o atributo aria-label diretamente no input."
+                    f"Add <label for=\"{inp_id}\">Email address</label> "
+                    "before the field, or add aria-label directly to the input."
                 ),
                 state="open",
             ))
@@ -166,21 +166,21 @@ def check_broken_links(html_source: str, html_path: str) -> list[dict]:
         if not target.exists():
             findings.append(make_finding(
                 id=FINDING_ID_BROKEN_LINK,
-                title="Link interno apontando para destino inexistente",
+                title="Internal link points to a missing destination",
                 severity="medium",
                 file=html_path,
-                location=f"linha {t['line']} — <a href=\"{href}\">",
+                location=f"line {t['line']} — <a href=\"{href}\">",
                 reproduction=(
-                    f"Clique no link ou abra {href} a partir do diretório "
-                    "do site. O arquivo de destino não existe."
+                    f"Follow the link or open {href} from the site directory. "
+                    "The destination file does not exist."
                 ),
                 evidence=(
-                    f"<a href=\"{href}\"> na linha {t['line']}; "
-                    f"arquivo esperado em {str(target)} não encontrado."
+                    f"<a href=\"{href}\"> on line {t['line']}; "
+                    f"the expected file at {str(target)} was not found."
                 ),
                 recommendation=(
-                    f"Crie o arquivo {href} ou corrija o href para um "
-                    "destino que existe."
+                    f"Create {href} or update the href to point to an "
+                    "existing destination."
                 ),
                 state="open",
             ))

@@ -49,8 +49,8 @@ def compare_reports(before: dict, after: dict) -> dict:
             f = copy.deepcopy(before_by_id[fid])
             f["state"] = "fixed"
             f["recheck_result"] = (
-                "Reverificação não detectou mais esta falha. "
-                "O checker passou sem encontrar o padrão anterior."
+                "The recheck no longer detected this issue. "
+                "The checker passed without finding the previous pattern."
             )
             merged.append(f)
 
@@ -60,8 +60,8 @@ def compare_reports(before: dict, after: dict) -> dict:
             f = copy.deepcopy(after_by_id[fid])
             f["state"] = "regressed"
             f["recheck_result"] = (
-                "A reverificação detectou esta falha somente no estado posterior. "
-                "Revise a mudança antes de aceitar a correção."
+                "The recheck detected this issue only in the later state. "
+                "Review the change before accepting the fix."
             )
             merged.append(f)
 
@@ -149,15 +149,15 @@ def write_comparison_html(comparison: dict, out_path: str | Path) -> None:
     summary_html = (
         f'<div class="summary-bar">'
         f'  <div class="summary-item">'
-        f'    <span class="summary-label">Ainda abertos:</span>'
+        f'    <span class="summary-label">Still open:</span>'
         f'    <span class="summary-value">{still_open}</span>'
         f'  </div>'
         f'  <div class="summary-item">'
-        f'    <span class="summary-label">Corrigidos nesta sessão:</span>'
+        f'    <span class="summary-label">Fixed this session:</span>'
         f'    <span class="summary-value">{fixed}</span>'
         f'  </div>'
         f'  <div class="summary-item">'
-        f'    <span class="summary-label">Novos / regredidos:</span>'
+        f'    <span class="summary-label">New / regressed:</span>'
         f'    <span class="summary-value">{regressed}</span>'
         f'  </div>'
         f'</div>'
@@ -166,50 +166,50 @@ def write_comparison_html(comparison: dict, out_path: str | Path) -> None:
     open_html = ""
     if open_findings:
         open_html = (
-            '<p class="fixed-section-label">Achados ainda abertos</p>'
+            '<p class="fixed-section-label">Findings still open</p>'
             + "\n".join(_finding_html(f, i) for i, f in enumerate(open_findings))
         )
 
     regressed_html = ""
     if regressed_findings:
         regressed_html = (
-            '<p class="fixed-section-label">Novos achados ou regressões</p>'
+            '<p class="fixed-section-label">New findings or regressions</p>'
             + "\n".join(_finding_html(f, i) for i, f in enumerate(regressed_findings))
         )
 
     fixed_html = ""
     if fixed_findings:
         fixed_html = (
-            '<p class="fixed-section-label">Corrigidos nesta sessão</p>'
+            '<p class="fixed-section-label">Fixed this session</p>'
             + "\n".join(_finding_html(f, i) for i, f in enumerate(fixed_findings))
         )
 
     scope_note = (
         '<div class="scope-note">'
-        'Esta comparação cobre apenas os testes executados. '
-        'Achados abertos foram priorizados pelo autor — não estão aqui por descuido.'
+        'This comparison covers only the checks that were run. '
+        'Open findings were deliberately prioritized by the author — they are not accidental omissions.'
         '</div>'
     )
 
     combined_css = _CSS + _COMPARISON_EXTRA_CSS
 
     html = f"""<!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SiteCheck — comparação antes/depois</title>
+  <title>SiteCheck — before/after comparison</title>
   <style>{combined_css}</style>
 </head>
 <body><main class="report-shell">
-  <header class="report-header"><span class="brand">SiteCheck</span><span class="edition">Antes / Depois</span></header>
-  <section class="report-intro"><div><p class="eyebrow">Reverificação</p><h1>O que<br>mudou.</h1></div><p class="meta"><code>{checked}</code>{ts}<br>Mesmos testes, dois estados comparáveis.</p></section>
+  <header class="report-header"><span class="brand">SiteCheck</span><span class="edition">Before / After</span></header>
+  <section class="report-intro"><div><p class="eyebrow">Verified recheck</p><h1>What<br>changed.</h1></div><p class="meta"><code>{checked}</code>{ts}<br>Same checks, two comparable states.</p></section>
 {summary_html}
 {open_html}
 {regressed_html}
 {fixed_html}
 {scope_note}
-  <footer><span>SiteCheck · Python 3</span><span>Decisão humana · evidência local</span></footer>
+  <footer><span>SiteCheck · Python 3</span><span>Human decision · local evidence</span></footer>
 </main>
 </body>
 </html>"""
