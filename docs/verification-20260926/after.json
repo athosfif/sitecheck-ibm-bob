@@ -1,0 +1,33 @@
+{
+  "schema_version": "1",
+  "checked_file": "demo-site/index.html",
+  "total_findings": 2,
+  "findings": [
+    {
+      "id": "SC-001",
+      "title": "Image missing alternative text",
+      "severity": "high",
+      "file": "demo-site/index.html",
+      "location": "line 29 — <img src=\"hero-art.svg\">",
+      "reproduction": "Open the file with a screen reader or validate it at https://validator.w3.org. The alt attribute is missing.",
+      "evidence": "<img src=\"hero-art.svg\"> has no alt attribute on line 29.",
+      "recommendation": "Add an alt attribute with a useful image description, for example: alt=\"Main portfolio image\". If the image is purely decorative, use alt=\"\".",
+      "state": "open",
+      "recheck_result": null,
+      "fingerprint": "SC-001:1babf271e2b3520ae2e3"
+    },
+    {
+      "id": "SC-003",
+      "title": "Internal link points to a missing destination",
+      "severity": "medium",
+      "file": "demo-site/index.html",
+      "location": "line 17 — <a href=\"contato.html\">",
+      "reproduction": "Follow the link or open contato.html from the site directory. The destination file does not exist.",
+      "evidence": "<a href=\"contato.html\"> on line 17; the expected file at demo-site/contato.html was not found.",
+      "recommendation": "Create contato.html or update the href to point to an existing destination.",
+      "state": "open",
+      "recheck_result": null,
+      "fingerprint": "SC-003:341e8e8e993dfdc18bc8"
+    }
+  ]
+}

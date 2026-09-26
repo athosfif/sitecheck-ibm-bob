@@ -8,7 +8,7 @@ A few findings with clear evidence and a verified fix are more useful than a bro
 
 ## Requirements
 
-Python 3.8 or newer. No external dependencies; SiteCheck uses only the standard library.
+Python 3.10 or newer. No external dependencies; SiteCheck uses only the standard library.
 
 ## Usage
 
@@ -33,7 +33,7 @@ python3 recheck.py sitecheck-output/before/report.json sitecheck-output/after/re
 python3 -m unittest discover test
 ```
 
-The suite includes 42 unit tests covering all three checkers, the report schema, before/after comparison, regression handling, and the real reports produced during the documented sessions.
+The suite includes 71 unit tests covering all three checkers, the report schema, before/after comparison, regression handling, and the real reports produced during the documented sessions.
 
 ## Demo
 
@@ -42,7 +42,7 @@ https://athosfif.github.io/sitecheck-ibm-bob/
 
 The online prototype accepts pasted HTML or local HTML files, runs the same three focused review rules in the browser, applies the demonstrated form-label fix, rechecks the result, and exports the evidence as JSON. Files stay in the browser and are not uploaded.
 
-The final video includes a real run of the analyzer, the before/after comparison, and the complete test suite:
+The original narrated video records the September 25 baseline (42 tests). It includes a real run of the analyzer, the before/after comparison, and the complete test suite:
 https://youtu.be/Esc6inzvVJw
 
 `demo-site/` contains a page with three intentional defects used to demonstrate the workflow:
@@ -86,10 +86,27 @@ test/             unittest test suite
 docs/             specification, review notes, and IBM Bob session records
 ```
 
+## Reproduce the evidence
+
+```sh
+python3 tools/reproduce_demo.py
+python3 -m unittest discover test
+```
+
+The first command creates a fresh evidence directory and asserts the 3 -> 2 result without changing the preserved session reports.
+
 ## Scope
 
 No login, external service, telemetry, or client data. The checkers detect a small set of explicit patterns; they do not claim complete accessibility or quality coverage.
 
 ## Current state
 
-Session 03 is complete: the recheck workflow is implemented, SC-002 is verified as fixed, two findings remain intentionally open, there are zero regressions, and all 42 tests pass.
+Session 03 is complete: the recheck workflow is implemented, SC-002 is verified as fixed, two findings remain intentionally open, there are zero regressions, and the original 42 tests passed. The September 26 review expanded the suite to 71 passing tests and added 17 browser verification scenarios. See [verification notes](docs/VERIFICATION-2026-09-26.md).
+
+The local-link check resolves relative file paths, percent encoding, queries and fragments. External URLs, root-relative server routes and pages using a base URL are outside this check. A missing browser destination means absent from the supplied file set, not a confirmed HTTP 404. Form names are a focused static check, not the complete accessible-name algorithm. Comparison tracks individual occurrences; changing an element identity can appear as an old occurrence disappearing and a new one appearing.
+
+## Updated presentation
+
+- [September 26 verified video](https://athosfif.github.io/sitecheck-ibm-bob/SiteCheck-verification-r2.mp4)
+- [Current pitch PDF](https://athosfif.github.io/sitecheck-ibm-bob/SiteCheck-Pitch-Deck.pdf)
+- [Review notes and evidence](docs/VERIFICATION-2026-09-26.md)

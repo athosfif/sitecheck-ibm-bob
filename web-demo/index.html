@@ -10,8 +10,8 @@
   <meta property="og:title" content="SiteCheck — Find the issue. Prove the fix.">
   <meta property="og:description" content="A focused review loop that turns website findings into verified fixes with clear evidence.">
   <meta property="og:url" content="https://athosfif.github.io/sitecheck-ibm-bob/">
-  <meta property="og:image" content="https://athosfif.github.io/sitecheck-ibm-bob/sitecheck-social-card.png">
-  <meta property="og:image:secure_url" content="https://athosfif.github.io/sitecheck-ibm-bob/sitecheck-social-card.png">
+  <meta property="og:image" content="https://athosfif.github.io/sitecheck-ibm-bob/sitecheck-social-card-r2.png">
+  <meta property="og:image:secure_url" content="https://athosfif.github.io/sitecheck-ibm-bob/sitecheck-social-card-r2.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1920">
   <meta property="og:image:height" content="1080">
@@ -19,10 +19,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SiteCheck — Find the issue. Prove the fix.">
   <meta name="twitter:description" content="A focused review loop that turns website findings into verified fixes with clear evidence.">
-  <meta name="twitter:image" content="https://athosfif.github.io/sitecheck-ibm-bob/sitecheck-social-card.png">
+  <meta name="twitter:image" content="https://athosfif.github.io/sitecheck-ibm-bob/sitecheck-social-card-r2.png">
   <title>SiteCheck — live website review loop</title>
   <link rel="stylesheet" href="style.css">
-</head>
+<style>.file-row{flex-wrap:wrap}.file-row select{max-width:100%;padding:8px}.scope-detail{flex-basis:100%;font-size:12px;line-height:1.6;opacity:.8}.finding-header{flex-wrap:wrap}.finding h3{overflow-wrap:anywhere}</style><style>.hero>*{min-width:0}h1{overflow-wrap:anywhere}.finding-header{grid-template-columns:64px minmax(0,1fr) auto}.work-grid>*{min-width:0}@media(max-width:700px){h1{font-size:clamp(2.6rem,11vw,4rem)}.hero{grid-template-columns:minmax(0,1fr)}.finding-header{grid-template-columns:56px minmax(0,1fr)}.severity{justify-self:start;grid-column:2}.result-meta{flex-wrap:wrap;gap:12px}.site-header nav{flex-wrap:wrap;gap:14px}.finding-body dl{grid-template-columns:1fr}.file-row{overflow-wrap:anywhere}.hero-proof{min-width:0}.metric-grid div{padding:10px 5px}}</style></head>
 <body>
   <a class="skip-link" href="#workspace">Skip to the review workspace</a>
 
@@ -32,8 +32,9 @@
       <span>SiteCheck</span>
     </a>
     <nav aria-label="Project links">
+        <a href="SiteCheck-Pitch-Deck.pdf" target="_blank" rel="noreferrer">Pitch PDF</a>
       <a href="https://github.com/athosfif/sitecheck-ibm-bob" target="_blank" rel="noreferrer">GitHub</a>
-      <a href="https://youtu.be/Esc6inzvVJw" target="_blank" rel="noreferrer">Demo film</a>
+      <a href="SiteCheck-verification-r2.mp4" target="_blank" rel="noreferrer">Demo film</a>
       <a href="https://figueirart.com/" target="_blank" rel="noreferrer">Figueira</a>
     </nav>
   </header>
@@ -47,7 +48,7 @@
       </div>
       <div class="hero-proof" aria-label="Project proof points">
         <div><strong>03</strong><span>deterministic checks</span></div>
-        <div><strong>42</strong><span>tests passing</span></div>
+        <div><strong>71</strong><span>tests passing</span></div>
         <div><strong>00</strong><span>paid services</span></div>
       </div>
     </section>
@@ -139,7 +140,7 @@
       </div>
       <p>IBM Bob supported planning, implementation, testing, and the verified recheck workflow across three documented sessions. Product scope, prioritization, code review, and art direction remained human decisions.</p>
     </section>
-  </main>
+  <section class="bob-note"><div><p class="section-index">September 26 update</p><h2>Tested beyond<br>the sample.</h2></div><p>71 Python tests and 17 browser verification scenarios. An independent Codex-assisted review corrected repeated-instance comparison and static HTML edge cases. The original Bob sessions are preserved. <a href="https://github.com/athosfif/sitecheck-ibm-bob/blob/main/docs/VERIFICATION-2026-09-26.md">Read the evidence and limitations</a>.</p></section></main>
 
   <footer>
     <div class="figueira-signature">
@@ -169,6 +170,6 @@
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="engine-r04.js"></script><script src="app.js?v=20260926-r2"></script>
 </body>
 </html>

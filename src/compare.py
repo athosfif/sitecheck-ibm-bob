@@ -1,7 +1,7 @@
 """
 compare.py — compara dois relatórios (antes/depois) e produz um artefato de comparação.
 
-Lógica de comparação por ID:
+Lógica de comparação por instancia (fingerprint; fallback de localizacao):
   - achado presente antes e ausente depois  → state="fixed"
   - achado ausente antes e presente depois  → state="regressed"
   - achado presente nos dois               → state mantido do relatório "depois"
@@ -14,6 +14,8 @@ Não modifica os relatórios de entrada; devolve estruturas novas.
 
 import json
 import copy
+import re
+from collections import defaultdict, deque
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -34,43 +36,48 @@ def compare_reports(before: dict, after: dict) -> dict:
       - Achado no after mas não no before  → incluído como "regressed" (novo).
       - Achado nos dois                   → versão do after (estado atualizado).
     """
-    before_by_id = {f["id"]: f for f in before.get("findings", [])}
-    after_by_id  = {f["id"]: f for f in after.get("findings",  [])}
+    # New reports match by instance fingerprint. Legacy reports keep a bounded
+    # fallback based on rule + normalized location, including mixed old/new pairs.
+    def legacy(f):
+        location = re.sub(r"^(?:line|linha) \d+\s*[—:-]?\s*", "", f.get("location", ""))
+        return (f["id"], location)
 
-    all_ids_ordered = _stable_id_order(before_by_id, after_by_id)
-    merged = []
-
-    for fid in all_ids_ordered:
-        in_before = fid in before_by_id
-        in_after  = fid in after_by_id
-
-        if in_before and not in_after:
-            # corrigido: checker não detectou mais este achado
-            f = copy.deepcopy(before_by_id[fid])
-            f["state"] = "fixed"
-            f["recheck_result"] = (
-                "The recheck no longer detected this issue. "
-                "The checker passed without finding the previous pattern."
-            )
-            merged.append(f)
-
-        elif in_after and not in_before:
-            # novo achado: surgiu depois da correção e deve ficar visível
-            # como regressão, em vez de ser misturado aos itens já abertos.
-            f = copy.deepcopy(after_by_id[fid])
-            f["state"] = "regressed"
-            f["recheck_result"] = (
-                "The recheck detected this issue only in the later state. "
-                "Review the change before accepting the fix."
-            )
-            merged.append(f)
-
+    previous = before.get("findings", [])
+    fingerprints, locations, old_locations = defaultdict(deque), defaultdict(deque), defaultdict(deque)
+    for index, f in enumerate(previous):
+        locations[legacy(f)].append(index)
+        if f.get("fingerprint"):
+            fingerprints[f["fingerprint"]].append(index)
         else:
-            # presente nos dois: usa a versão do after
-            merged.append(copy.deepcopy(after_by_id[fid]))
+            old_locations[legacy(f)].append(index)
+    used = set()
+    def take(queue):
+        while queue and queue[0] in used:
+            queue.popleft()
+        if queue:
+            used.add(queue.popleft())
+            return True
+        return False
+    merged = []
+    for finding in after.get("findings", []):
+        f = copy.deepcopy(finding)
+        if f.get("fingerprint"):
+            matched = take(fingerprints[f["fingerprint"]]) or take(old_locations[legacy(f)])
+        else:
+            matched = take(locations[legacy(f)])
+        if not matched:
+            f["state"] = "regressed"
+            f["recheck_result"] = "The recheck detected this instance only in the later report. Review the change."
+        merged.append(f)
+    for index, finding in enumerate(previous):
+        if index not in used:
+            f = copy.deepcopy(finding)
+            f["state"] = "fixed"
+            f["recheck_result"] = "The recheck no longer detected this instance of the previous pattern."
+            merged.append(f)
 
     fixed_count     = sum(1 for f in merged if f["state"] == "fixed")
-    still_open      = sum(1 for f in merged if f["state"] == "open")
+    still_open      = sum(1 for f in merged if f["state"] in ("open", "unverified"))
     regressed_count = sum(1 for f in merged if f["state"] == "regressed")
 
     report = make_report(
@@ -80,7 +87,7 @@ def compare_reports(before: dict, after: dict) -> dict:
     )
     # reordenar: abertos primeiro (por severidade), corrigidos ao final
     report["findings"] = (
-        _sort_by_severity([f for f in merged if f["state"] == "open"]) +
+        _sort_by_severity([f for f in merged if f["state"] in ("open", "unverified")]) +
         _sort_by_severity([f for f in merged if f["state"] == "regressed"]) +
         _sort_by_severity([f for f in merged if f["state"] == "fixed"])
     )
@@ -91,15 +98,6 @@ def compare_reports(before: dict, after: dict) -> dict:
         "regressed":  regressed_count,
     }
     return report
-
-
-def _stable_id_order(before_by_id: dict, after_by_id: dict) -> list:
-    """Mantém a ordem original dos IDs (before primeiro, novos do after ao final)."""
-    seen = []
-    for fid in list(before_by_id) + list(after_by_id):
-        if fid not in seen:
-            seen.append(fid)
-    return seen
 
 
 def _sort_by_severity(findings: list) -> list:
@@ -142,7 +140,7 @@ def write_comparison_html(comparison: dict, out_path: str | Path) -> None:
     checked    = _esc(comparison.get("checked_file", ""))
     ts         = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
-    open_findings   = [f for f in comparison["findings"] if f["state"] == "open"]
+    open_findings   = [f for f in comparison["findings"] if f["state"] in ("open", "unverified")]
     regressed_findings = [f for f in comparison["findings"] if f["state"] == "regressed"]
     fixed_findings  = [f for f in comparison["findings"] if f["state"] == "fixed"]
 
@@ -187,7 +185,7 @@ def write_comparison_html(comparison: dict, out_path: str | Path) -> None:
     scope_note = (
         '<div class="scope-note">'
         'This comparison covers only the checks that were run. '
-        'Open findings were deliberately prioritized by the author — they are not accidental omissions.'
+        'Open findings still require review; disappearance means this pattern was not detected on the recheck, not that every site issue is fixed.'
         '</div>'
     )
 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SiteCheck — report</title>
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #11130f; --paper: #f2eee4; --acid: #d8ff55;
+  --cobalt: #5b63ff; --coral: #ff735f; --line: rgba(17,19,15,.17);
+  --sans: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Iowan Old Style", Baskerville, Georgia, serif;
+  --mono: "SFMono-Regular", Consolas, monospace;
+}
+body { font-family: var(--sans); font-size: 15px; line-height: 1.55; color: var(--ink); background: #0c0e0c; padding: 28px; }
+.report-shell { width: min(1160px, 100%); margin: 0 auto; padding: 28px 44px 38px; background: var(--paper); }
+.report-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.brand { font-size: .8rem; font-weight: 750; letter-spacing: .18em; text-transform: uppercase; }
+.brand::before { content: "●"; color: var(--cobalt); margin-right: 9px; }
+.edition { font: 650 .68rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.report-intro { display: grid; grid-template-columns: 1.2fr .8fr; align-items: end; gap: 40px; padding: 58px 0 46px; }
+.eyebrow { margin-bottom: 14px; font-size: .68rem; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; }
+h1 { font: 400 clamp(3.2rem, 7vw, 6.7rem)/.88 var(--serif); letter-spacing: -.055em; }
+.meta { align-self: end; color: #4d5049; font-size: .82rem; }
+.meta code { display: block; margin-bottom: 10px; color: var(--ink); }
+.empty { padding: 28px; border: 1px solid var(--line); background: rgba(255,255,255,.35); font: 400 1.45rem/1.35 var(--serif); }
+.finding { margin-bottom: 16px; border: 1px solid var(--line); background: rgba(255,255,255,.22); overflow: hidden; }
+.finding-header { display: grid; grid-template-columns: 76px 1fr auto auto; align-items: center; gap: 14px; min-height: 76px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.finding-id { font: 700 .7rem/1 var(--mono); letter-spacing: .08em; }
+.finding-title { font: 400 1.48rem/1.1 var(--serif); }
+.badge { padding: 7px 10px 6px; border: 1px solid currentColor; border-radius: 999px; font-size: .62rem; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap; }
+.sev-high { color: #b5302d; }.sev-medium { color: #7d5c00; }.sev-low { color: #256349; }
+.state-open { color: #b5302d; background: #ffe2dc; }.state-fixed { color: #1c533d; background: var(--acid); }
+.state-regressed { color: #11130f; background: var(--coral); }.state-unverified { color: #4d5049; background: #dedbd2; }
+.finding-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.field { min-height: 112px; padding: 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.field:nth-child(even) { border-right: 0; }
+.field-label { margin-bottom: 7px; color: #62665d; font-size: .62rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+.field-value { font-size: .86rem; }
+code { padding: 3px 6px; border: 1px solid var(--line); background: rgba(255,255,255,.4); font: .78rem var(--mono); }
+footer { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); color: #62665d; font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+@media (max-width: 760px) {
+  body { padding: 0; }.report-shell { padding: 22px; }.report-intro { grid-template-columns: 1fr; }.finding-header { grid-template-columns: 58px 1fr; }.badge { justify-self: start; }.finding-body { grid-template-columns: 1fr; }.field { border-right: 0; }
+}
+</style>
+</head>
+<body><main class="report-shell">
+  <header class="report-header"><span class="brand">SiteCheck</span><span class="edition">Report / 01</span></header>
+  <section class="report-intro"><div><p class="eyebrow">Verifiable review</p><h1>Findings<br>report.</h1></div><p class="meta"><code>demo-site/index.html</code>2026-09-26 23:49 UTC<br>2 findings found by the checks that were run.</p></section>
+<div class="finding">  <div class="finding-header">    <span class="finding-id">SC-001</span>    <span class="finding-title">Image missing alternative text</span>    <span class="badge sev-high">Severity High</span>    <span class="badge state-open">Open</span>  </div>  <div class="finding-body"><div class="field"><div class="field-label">File / location</div><div class="field-value">line 29 — &lt;img src=&quot;hero-art.svg&quot;&gt;</div></div><div class="field"><div class="field-label">How to reproduce</div><div class="field-value">Open the file with a screen reader or validate it at https://validator.w3.org. The alt attribute is missing.</div></div><div class="field"><div class="field-label">Evidence</div><div class="field-value">&lt;img src=&quot;hero-art.svg&quot;&gt; has no alt attribute on line 29.</div></div><div class="field"><div class="field-label">Recommended fix</div><div class="field-value">Add an alt attribute with a useful image description, for example: alt=&quot;Main portfolio image&quot;. If the image is purely decorative, use alt=&quot;&quot;.</div></div></div></div>
+<div class="finding">  <div class="finding-header">    <span class="finding-id">SC-003</span>    <span class="finding-title">Internal link points to a missing destination</span>    <span class="badge sev-medium">Severity Medium</span>    <span class="badge state-open">Open</span>  </div>  <div class="finding-body"><div class="field"><div class="field-label">File / location</div><div class="field-value">line 17 — &lt;a href=&quot;contato.html&quot;&gt;</div></div><div class="field"><div class="field-label">How to reproduce</div><div class="field-value">Follow the link or open contato.html from the site directory. The destination file does not exist.</div></div><div class="field"><div class="field-label">Evidence</div><div class="field-value">&lt;a href=&quot;contato.html&quot;&gt; on line 17; the expected file at demo-site/contato.html was not found.</div></div><div class="field"><div class="field-label">Recommended fix</div><div class="field-value">Create contato.html or update the href to point to an existing destination.</div></div></div></div>
+  <footer><span>SiteCheck · Python 3</span><span>Local · no external services</span></footer>
+</main>
+</body>
+</html>

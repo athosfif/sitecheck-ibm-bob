@@ -1,0 +1,83 @@
+test_anchor_link_ignored (test_checkers.TestBrokenLinks.test_anchor_link_ignored) ... ok
+test_demo_site_has_flaw (test_checkers.TestBrokenLinks.test_demo_site_has_flaw)
+O demo-site real deve disparar SC-003 (contato.html inexistente). ... ok
+test_external_link_ignored (test_checkers.TestBrokenLinks.test_external_link_ignored) ... ok
+test_link_to_existing_file_is_clean (test_checkers.TestBrokenLinks.test_link_to_existing_file_is_clean) ... ok
+test_link_to_missing_file_is_found (test_checkers.TestBrokenLinks.test_link_to_missing_file_is_found) ... ok
+test_mailto_ignored (test_checkers.TestBrokenLinks.test_mailto_ignored) ... ok
+test_demo_site_has_flaw (test_checkers.TestImgAlt.test_demo_site_has_flaw)
+O demo-site real deve disparar SC-001. ... ok
+test_finding_contains_required_fields (test_checkers.TestImgAlt.test_finding_contains_required_fields) ... ok
+test_img_with_empty_alt_is_valid_for_decorative_image (test_checkers.TestImgAlt.test_img_with_empty_alt_is_valid_for_decorative_image) ... ok
+test_img_with_valid_alt_is_clean (test_checkers.TestImgAlt.test_img_with_valid_alt_is_clean) ... ok
+test_img_with_whitespace_alt_is_not_missing (test_checkers.TestImgAlt.test_img_with_whitespace_alt_is_not_missing) ... ok
+test_img_without_alt_is_found (test_checkers.TestImgAlt.test_img_without_alt_is_found) ... ok
+test_no_images_returns_empty (test_checkers.TestImgAlt.test_no_images_returns_empty) ... ok
+test_demo_site_sc002_fixed (test_checkers.TestLabelFor.test_demo_site_sc002_fixed)
+SC-002 foi corrigido na sessão 03: demo-site não deve mais disparar este checker. ... ok
+test_hidden_input_ignored (test_checkers.TestLabelFor.test_hidden_input_ignored) ... ok
+test_input_with_aria_label_is_clean (test_checkers.TestLabelFor.test_input_with_aria_label_is_clean) ... ok
+test_input_with_aria_labelledby_is_clean (test_checkers.TestLabelFor.test_input_with_aria_labelledby_is_clean) ... ok
+test_input_with_label_is_clean (test_checkers.TestLabelFor.test_input_with_label_is_clean) ... ok
+test_input_without_label_is_found (test_checkers.TestLabelFor.test_input_without_label_is_found) ... ok
+test_submit_button_ignored (test_checkers.TestLabelFor.test_submit_button_ignored) ... ok
+test_clean_html_returns_empty (test_checkers.TestRunAll.test_clean_html_returns_empty) ... ok
+test_demo_site_findings_have_distinct_ids (test_checkers.TestRunAll.test_demo_site_findings_have_distinct_ids) ... ok
+test_demo_site_produces_exactly_two_findings_after_sc002_fix (test_checkers.TestRunAll.test_demo_site_produces_exactly_two_findings_after_sc002_fix)
+Após a correção do SC-002 na sessão 03, o demo-site tem dois achados abertos. ... ok
+test_same_input_same_output (test_checkers.TestRunAll.test_same_input_same_output)
+Determinismo: mesma entrada produz o mesmo relatório. ... ok
+test_invalid_severity_raises (test_checkers.TestSchema.test_invalid_severity_raises) ... ok
+test_invalid_state_raises (test_checkers.TestSchema.test_invalid_state_raises) ... ok
+test_real_comparison_has_one_fixed (test_compare.TestCompareRealReports.test_real_comparison_has_one_fixed) ... ok
+test_real_comparison_sc001_and_sc003_remain_open (test_compare.TestCompareRealReports.test_real_comparison_sc001_and_sc003_remain_open) ... ok
+test_real_comparison_sc002_is_fixed (test_compare.TestCompareRealReports.test_real_comparison_sc002_is_fixed) ... ok
+test_real_comparison_still_open_count (test_compare.TestCompareRealReports.test_real_comparison_still_open_count) ... ok
+test_real_reports_exist (test_compare.TestCompareRealReports.test_real_reports_exist) ... ok
+test_all_fixed_returns_empty_open (test_compare.TestCompareReports.test_all_fixed_returns_empty_open) ... ok
+test_comparison_does_not_mutate_inputs (test_compare.TestCompareReports.test_comparison_does_not_mutate_inputs)
+compare_reports não deve alterar os relatórios de entrada. ... ok
+test_comparison_report_has_schema_version (test_compare.TestCompareReports.test_comparison_report_has_schema_version) ... ok
+test_finding_in_after_and_not_before_is_regressed (test_compare.TestCompareReports.test_finding_in_after_and_not_before_is_regressed) ... ok
+test_finding_in_before_and_not_after_becomes_fixed (test_compare.TestCompareReports.test_finding_in_before_and_not_after_becomes_fixed) ... ok
+test_finding_in_both_uses_after_version (test_compare.TestCompareReports.test_finding_in_both_uses_after_version) ... ok
+test_fixed_finding_has_recheck_result (test_compare.TestCompareReports.test_fixed_finding_has_recheck_result) ... ok
+test_new_finding_increments_regressed_count (test_compare.TestCompareReports.test_new_finding_increments_regressed_count) ... ok
+test_no_changes_returns_all_open (test_compare.TestCompareReports.test_no_changes_returns_all_open) ... ok
+test_open_findings_come_before_fixed_in_output (test_compare.TestCompareReports.test_open_findings_come_before_fixed_in_output) ... ok
+test_summary_counts_are_correct (test_compare.TestCompareReports.test_summary_counts_are_correct)
+Três antes, um corrigido, dois permanecem abertos. ... ok
+test_fixing_one_of_two_images_preserves_other (test_regressions.InstanceComparisonTests.test_fixing_one_of_two_images_preserves_other) ... ok
+test_href_without_value_does_not_crash (test_regressions.InstanceComparisonTests.test_href_without_value_does_not_crash) ... ok
+test_identical_instances_are_counted (test_regressions.InstanceComparisonTests.test_identical_instances_are_counted) ... ok
+test_legacy_after_matches_new_before (test_regressions.InstanceComparisonTests.test_legacy_after_matches_new_before) ... ok
+test_legacy_before_matches_new_after (test_regressions.InstanceComparisonTests.test_legacy_before_matches_new_after) ... ok
+test_line_shift_is_not_a_new_issue (test_regressions.InstanceComparisonTests.test_line_shift_is_not_a_new_issue) ... ok
+test_new_instance_of_same_rule_is_regressed (test_regressions.InstanceComparisonTests.test_new_instance_of_same_rule_is_regressed) ... ok
+test_replacing_instance_is_not_a_verified_fix_only (test_regressions.InstanceComparisonTests.test_replacing_instance_is_not_a_verified_fix_only) ... ok
+test_unverified_state_is_not_dropped (test_regressions.InstanceComparisonTests.test_unverified_state_is_not_dropped) ... ok
+test_dangling_labelledby_is_reported (test_regressions.LabelRegressionTests.test_dangling_labelledby_is_reported) ... ok
+test_empty_aria_label_is_reported (test_regressions.LabelRegressionTests.test_empty_aria_label_is_reported) ... ok
+test_empty_explicit_label_is_reported (test_regressions.LabelRegressionTests.test_empty_explicit_label_is_reported) ... ok
+test_hidden_label_text_does_not_supply_name (test_regressions.LabelRegressionTests.test_hidden_label_text_does_not_supply_name) ... ok
+test_image_in_label_supplies_name (test_regressions.LabelRegressionTests.test_image_in_label_supplies_name) ... ok
+test_image_input_alt_name_is_accepted (test_regressions.LabelRegressionTests.test_image_input_alt_name_is_accepted) ... ok
+test_input_type_is_case_insensitive (test_regressions.LabelRegressionTests.test_input_type_is_case_insensitive) ... ok
+test_mismatched_wrapping_label_is_not_accepted (test_regressions.LabelRegressionTests.test_mismatched_wrapping_label_is_not_accepted) ... ok
+test_script_text_does_not_supply_a_name (test_regressions.LabelRegressionTests.test_script_text_does_not_supply_a_name) ... ok
+test_select_and_textarea_are_checked (test_regressions.LabelRegressionTests.test_select_and_textarea_are_checked) ... ok
+test_text_labelledby_is_accepted (test_regressions.LabelRegressionTests.test_text_labelledby_is_accepted) ... ok
+test_title_name_is_accepted (test_regressions.LabelRegressionTests.test_title_name_is_accepted) ... ok
+test_wrapping_label_names_field (test_regressions.LabelRegressionTests.test_wrapping_label_names_field) ... ok
+test_encoded_file_query_and_fragment (test_regressions.LinkRegressionTests.test_encoded_file_query_and_fragment) ... ok
+test_external_base_url_is_out_of_local_scope (test_regressions.LinkRegressionTests.test_external_base_url_is_out_of_local_scope) ... ok
+test_missing_file_is_still_reported (test_regressions.LinkRegressionTests.test_missing_file_is_still_reported) ... ok
+test_parent_relative_file_resolves (test_regressions.LinkRegressionTests.test_parent_relative_file_resolves) ... ok
+test_protocol_relative_is_external (test_regressions.LinkRegressionTests.test_protocol_relative_is_external) ... ok
+test_root_relative_is_out_of_single_file_scope (test_regressions.LinkRegressionTests.test_root_relative_is_out_of_single_file_scope) ... ok
+test_schemes_are_not_local_files (test_regressions.LinkRegressionTests.test_schemes_are_not_local_files) ... ok
+
+----------------------------------------------------------------------
+Ran 71 tests in 0.055s
+
+OK

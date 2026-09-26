@@ -20,6 +20,7 @@ def make_finding(
     evidence: str,
     recommendation: str,
     state: str = "open",
+    fingerprint: str | None = None,
     recheck_result: str | None = None,
 ) -> dict:
     """Retorna um achado validado. Lança ValueError em campos inválidos."""
@@ -27,7 +28,7 @@ def make_finding(
         raise ValueError(f"severity deve ser um de {SEVERITIES}, recebeu {severity!r}")
     if state not in STATES:
         raise ValueError(f"state deve ser um de {STATES}, recebeu {state!r}")
-    return {
+    result = {
         "id": id,
         "title": title,
         "severity": severity,
@@ -39,6 +40,9 @@ def make_finding(
         "state": state,
         "recheck_result": recheck_result,
     }
+    if fingerprint is not None:
+        result["fingerprint"] = fingerprint
+    return result
 
 
 def make_report(findings: list[dict], checked_file: str) -> dict:

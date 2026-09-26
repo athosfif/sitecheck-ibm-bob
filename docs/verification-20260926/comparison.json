@@ -1,0 +1,51 @@
+{
+  "schema_version": "1",
+  "checked_file": "demo-site/index.html",
+  "total_findings": 3,
+  "findings": [
+    {
+      "id": "SC-001",
+      "title": "Image missing alternative text",
+      "severity": "high",
+      "file": "demo-site/index.html",
+      "location": "line 29 — <img src=\"hero-art.svg\">",
+      "reproduction": "Open the file with a screen reader or validate it at https://validator.w3.org. The alt attribute is missing.",
+      "evidence": "<img src=\"hero-art.svg\"> has no alt attribute on line 29.",
+      "recommendation": "Add an alt attribute with a useful image description, for example: alt=\"Main portfolio image\". If the image is purely decorative, use alt=\"\".",
+      "state": "open",
+      "recheck_result": null,
+      "fingerprint": "SC-001:1babf271e2b3520ae2e3"
+    },
+    {
+      "id": "SC-003",
+      "title": "Internal link points to a missing destination",
+      "severity": "medium",
+      "file": "demo-site/index.html",
+      "location": "line 17 — <a href=\"contato.html\">",
+      "reproduction": "Follow the link or open contato.html from the site directory. The destination file does not exist.",
+      "evidence": "<a href=\"contato.html\"> on line 17; the expected file at demo-site/contato.html was not found.",
+      "recommendation": "Create contato.html or update the href to point to an existing destination.",
+      "state": "open",
+      "recheck_result": null,
+      "fingerprint": "SC-003:341e8e8e993dfdc18bc8"
+    },
+    {
+      "id": "SC-002",
+      "title": "Form field missing an associated label",
+      "severity": "high",
+      "file": "demo-site/index.html",
+      "location": "line 37 — <input type=\"email\" id=\"email-input\">",
+      "reproduction": "Inspect the field in DevTools: no <label for> targets this id. Screen readers do not announce a descriptive label.",
+      "evidence": "<input id=\"email-input\"> on line 37 has no matching <label for=\"email-input\"> and no aria-label.",
+      "recommendation": "Associate a descriptive label using the existing id, or use a nonempty accessible name. Choose wording that describes this field.",
+      "state": "fixed",
+      "recheck_result": "The recheck no longer detected this instance of the previous pattern.",
+      "fingerprint": "SC-002:5d26614a95388408fa6a"
+    }
+  ],
+  "comparison_summary": {
+    "fixed": 1,
+    "still_open": 2,
+    "regressed": 0
+  }
+}

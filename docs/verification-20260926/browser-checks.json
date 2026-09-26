@@ -1,0 +1,22 @@
+{
+  "passed": 17,
+  "results": [
+    "sample 3 findings",
+    "query and protocol-relative links",
+    "implicit form label",
+    "aria text reference",
+    "empty or dangling names",
+    "same rule partial fix",
+    "duplicate instances",
+    "line locations with single quotes",
+    "no script/comment false source line",
+    "new same-rule issue",
+    "source size bounded",
+    "UI sample 3 -> 2",
+    "custom fix limited",
+    "inert untrusted HTML",
+    "non-HTML destination",
+    "six languages",
+    "responsive 390/768/1440"
+  ]
+}

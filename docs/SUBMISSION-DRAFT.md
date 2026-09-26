@@ -41,7 +41,7 @@ in the demo can be reproduced locally.
 - Verified as fixed: **SC-002, missing form label**
 - Still open by explicit prioritization: **SC-001 and SC-003**
 - New regressions: **0**
-- Automated tests: **42 passing**
+- Automated tests: **71 passing**, plus 17 browser verification scenarios
 
 ## How IBM Bob 2.0 was used
 
@@ -56,6 +56,8 @@ three checks, choosing SC-002 as the first correction, reviewing the generated c
 directing the visual language. Human review also caught a comparison-state issue that could
 hide a newly introduced finding; it was corrected and covered by a dedicated test.
 
+A September 26 independent, Codex-assisted corrective review added 29 regression cases and corrected repeated-instance comparison and static HTML edge cases. This update is documented separately; the preserved Bob sessions and original narrated video show the earlier 42-test state.
+
 ## What makes the submission personal
 
 I work between design, communication and practical AI workflows. I wanted the result to feel
@@ -66,7 +68,7 @@ HTML file with no external assets.
 
 ## Technical overview
 
-- Python 3.8+
+- Python 3.10+
 - standard library only
 - deterministic HTML parsing and local path checks
 - JSON and self-contained HTML reports
@@ -77,7 +79,7 @@ HTML file with no external assets.
 
 - The tool checks exactly three known patterns.
 - It does not claim complete accessibility, security or website-quality coverage.
-- Comparison uses stable finding IDs.
+- Comparison tracks occurrences using fingerprints, with a location fallback for older reports.
 - The demo intentionally leaves two findings open to show prioritization and traceability.
 
 ## Run locally
@@ -101,6 +103,6 @@ python3 -m unittest discover test
 
 ## Links to add before submission
 
-- Public repository: `[ADD URL]`
+- Public repository: https://github.com/athosfif/sitecheck-ibm-bob
 - Demo video: https://youtu.be/Esc6inzvVJw
-- Team / participant profile: `[ADD URL]`
+- Team / participant profile: https://lablab.ai/ai-hackathons/ibm-bob-2-hackathon/figueira-ai
