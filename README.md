@@ -35,6 +35,10 @@ python3 -m unittest discover test
 
 The suite includes 71 unit tests covering all three checkers, the report schema, before/after comparison, regression handling, and the real reports produced during the documented sessions.
 
+## IBM Bob IDE evidence
+
+The required [`bob_sessions/`](bob_sessions/README.md) folder contains the original task's consumption-summary screenshot, captured from IBM Bob IDE, and the preserved planning, implementation and recheck screenshots. The three documented phases are follow-ups within one IDE task. The September 27 evidence-packaging correction changes no application code or test results.
+
 ## Demo
 
 Try the interactive browser prototype:
